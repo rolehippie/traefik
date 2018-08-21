@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Thomas Boerger
+  description: Ansible role to configure traefik
+  license: Apache-2.0
+  min_ansible_version: 2.5
+  platforms:
+  - name: Ubuntu
+    versions:
+    - xenial
+    - bionic
+  galaxy_tags:
+  - traefik
+
+dependencies: []

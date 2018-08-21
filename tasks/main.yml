@@ -1,0 +1,82 @@
+- name: install deps
+  with_items:
+    - python3-docker
+  package:
+    name: '{{ item }}'
+    state: present
+  tags:
+    - traefik
+
+- name: define network
+  docker_network:
+    name: traefik
+  tags:
+    - traefik
+
+- name: create dirs
+  with_items:
+    - /etc/traefik
+  file:
+    path: '{{ item }}'
+    state: directory
+  tags:
+    - traefik
+
+- name: write keys
+  notify:
+    - restart traefik
+  with_items: '{{ traefik_certs }}'
+  copy:
+    content: '{{ item.key }}'
+    dest: /etc/ssl/private/{{ item.name }}.pem
+    mode: u=rw,g=,o=
+  tags:
+    - traefik
+
+- name: write certs
+  notify:
+    - restart traefik
+  with_items: '{{ traefik_certs }}'
+  copy:
+    content: '{{ item.cert }}'
+    dest: /etc/ssl/certs/{{ item.name }}.pem
+    mode: u=rw,g=,o=
+  tags:
+    - traefik
+
+- name: write config
+  notify:
+    - restart traefik
+  template:
+    src: config.j2
+    dest: /etc/traefik/config.toml
+  tags:
+    - traefik
+
+- name: write default
+  notify:
+    - restart traefik
+  template:
+    src: default.j2
+    dest: /etc/default/traefik
+  tags:
+    - traefik
+
+- name: prepare service
+  notify:
+    - restart traefik
+  template:
+    src: service.j2
+    dest: /etc/systemd/system/traefik.service
+  tags:
+    - traefik
+
+- name: start service
+  systemd:
+    name: traefik
+    state: started
+    daemon_reload: yes
+    masked: no
+    enabled: yes
+  tags:
+    - traefik

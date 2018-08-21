@@ -1,0 +1,121 @@
+defaultEntryPoints = ["http", "https"]
+logLevel = "INFO"
+checkNewVersion = false
+sendAnonymousUsage = true
+
+[entryPoints]
+  [entryPoints.traefik]
+    address = ":8000"
+    [entryPoints.traefik.auth.basic]
+      users = ["{{ traefik_users | join('", "') }}"]
+  [entryPoints.http]
+    address = ":80"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
+  [entryPoints.https]
+    address = ":443"
+    [entryPoints.https.tls]
+      cipherSuites = [
+        "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+        "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
+      ]
+{% for item in traefik_certs %}
+      [[entryPoints.https.tls.certificates]]
+        CertFile = "/etc/ssl/certs/{{ item.name }}.pem"
+        KeyFile = "/etc/ssl/private/{{ item.name }}.pem"
+{% endfor %}
+
+{% if traefik_letsencrypt | default(False) %}
+[acme]
+  email = "{{ traefik_email }}"
+  storage = "/etc/traefik/acme.json"
+  entryPoint = "https"
+  onHostRule = true
+
+  [acme.httpChallenge]
+    entryPoint = "http"
+{% endif %}
+
+[api]
+  entryPoint = "traefik"
+  dashboard = true
+
+[ping]
+  entryPoint = "traefik"
+
+[metrics]
+  [metrics.prometheus]
+    entryPoint = "traefik"
+    buckets = [0.1, 0.3, 1.2, 5.0]
+
+[docker]
+  domain = "{{ traefik_domain }}"
+  watch = true
+  exposedbydefault = false
+
+{% if traefik_frontends | default(False) or traefik_backends | default(False) %}
+[file]
+  watch = true
+{% endif %}
+
+{% if traefik_backends | default(False) %}
+[backends]
+{% for backend in traefik_backends %}
+  [backends.{{ backend.name }}]
+    [backends.{{ backend.name }}.servers]
+{% for server in backend.servers %}
+      [backends.{{ backend.name }}.servers.{{ loop.index }}]
+        url = "{{ server.url }}"
+{% endfor %}
+{% endfor %}
+
+{% endif %}
+{% if traefik_frontends | default(False) %}
+[frontends]
+{% for frontend in traefik_frontends %}
+  [frontends.{{ frontend.name }}]
+{% if frontend.backend | default(False) %}
+    backend = "{{ frontend.backend }}"
+{% endif %}
+{% if frontend.entrypoints | default(False) %}
+    entrypoints = [{% for e in frontend.entrypoints %}"{{ e }}"{% if not loop.last %}, {% endif %}{% endfor %}]
+{% endif %}
+    passHostHeader = {{ frontend.pass_header | default(True) | lower }}
+{% if frontend.priority | default(False) %}
+    priority = {{ frontend.priority }}
+{% endif %}
+{% if frontend.rules | default(False) %}
+    [frontends.{{ frontend.name }}.routes]
+{% for rule in frontend.rules | default([]) %}
+      [frontends.{{ frontend.name }}.routes.{{ loop.index }}]
+        rule = "{{ rule }}"
+{% endfor %}
+{% endif %}
+{% if frontend.redirect | default(False) %}
+    [frontends.{{ frontend.name }}.redirect]
+{% if frontend.redirect.entrypoint | default(False) %}
+      entryPoint = "{{ frontend.redirect.entrypoint }}"
+{% endif %}
+      regex = "{{ frontend.redirect.regex }}"
+      replacement = "{{ frontend.redirect.replacement }}"
+      permanent = {{ frontend.redirect.permanent | default(False) | lower }}
+{% endif %}
+    [frontends.{{ frontend.name }}.headers]
+      forceSTSHeader = true
+      STSIncludeSubdomains = false
+      STSPreload = true
+      STSSeconds = 315360000
+      referrerPolicy = "strict-origin-when-cross-origin"
+      customFrameOptionsValue = "SAMEORIGIN"
+      browserXSSFilter = true
+      contentTypeNosniff = true
+{% endfor %}
+{% endif %}
