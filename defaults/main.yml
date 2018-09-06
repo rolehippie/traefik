@@ -3,6 +3,7 @@ traefik_letsencrypt: True
 traefik_email:
 traefik_users: []
 traefik_certs: []
+traefik_ports: []
 traefik_entrypoints: []
 traefik_backends: []
 traefik_frontends: []

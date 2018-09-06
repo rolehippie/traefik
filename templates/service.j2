@@ -29,6 +29,9 @@ ExecStart=/usr/bin/docker run --rm \
   --publish 8000:8000 \
   --publish 80:80 \
   --publish 443:443 \
+{% for port in traefik_ports %}
+  --publish {{ port }} \
+{% endfor %}
   library/traefik:1.6-alpine \
   -c /etc/traefik/config.toml
 
