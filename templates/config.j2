@@ -27,10 +27,39 @@ sendAnonymousUsage = true
         "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
         "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
       ]
-{% for item in traefik_certs %}
+{% for cert in traefik_certs %}
       [[entryPoints.https.tls.certificates]]
-        CertFile = "/etc/ssl/certs/{{ item.name }}.pem"
-        KeyFile = "/etc/ssl/private/{{ item.name }}.pem"
+        CertFile = "/etc/ssl/certs/{{ cert.name }}.pem"
+        KeyFile = "/etc/ssl/private/{{ cert.name }}.pem"
+{% endfor %}
+
+{% for item in traefik_entrypoints %}
+  [entryPoints.{{ item.name }}]
+    address = "{{ item.address }}"
+{% if item.redirect | default(False) %}
+    [entryPoints.{{ item.name }}.redirect]
+      entryPoint = "{{ item.redirect }}"
+{% endif %}
+{% if item.tls | default(False) %}
+    [entryPoints.{{ item.name }}.tls]
+      cipherSuites = [
+        "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+        "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
+      ]
+{% for cert in traefik_certs %}
+      [[entryPoints.{{ item.name }}.tls.certificates]]
+        CertFile = "/etc/ssl/certs/{{ cert.name }}.pem"
+        KeyFile = "/etc/ssl/private/{{ cert.name }}.pem"
+{% endfor %}
+{% endif %}
 {% endfor %}
 
 {% if traefik_letsencrypt | default(False) %}
