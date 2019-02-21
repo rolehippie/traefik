@@ -10,6 +10,9 @@
 - name: define network
   docker_network:
     name: traefik
+    enable_ipv6: '{{ traefik_ipv6 }}'
+    ipam_config:
+      - subnet: '{{ traefik_subnet }}'
   tags:
     - traefik
 
