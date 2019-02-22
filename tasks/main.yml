@@ -7,7 +7,7 @@
     - traefik
 
 - name: define network
-  when: traefik_network.rc != 0
+  when: traefik_network.rc is defined and traefik_network.rc != 0
   command: 'docker network create{% if traefik_ipv6 %} --ipv6{% endif %}{% if traefik_subnet != "" %} --subnet={{ traefik_subnet }}{% endif %} traefik'
   tags:
     - traefik
