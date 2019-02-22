@@ -1,6 +1,6 @@
 - name: check network
   changed_when: False
-  shell: 'docker network ls --format "{{.Name}}"'
+  shell: 'docker network ls --format "{% raw %}{{.Names}}{% endraw %}"'
   register: networks
   tags:
     - traefik
