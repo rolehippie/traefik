@@ -1,13 +1,14 @@
 - name: check network
   changed_when: False
-  shell: 'docker network ls --format "{% raw %}{{.Names}}{% endraw %}"'
-  register: networks
+  failed_when: False
+  command: 'docker network inspect traefik'
+  register: traefik_network
   tags:
     - traefik
 
 - name: define network
-  when: '"traefik" not in networks.stdout'
-  shell: 'docker network create{% if traefik_ipv6 %} --ipv6{% endif %}{% if traefik_subnet != "" %} --subnet={{ traefik_subnet }}{% endif %} traefik'
+  when: traefik_network.rc != 0
+  command: 'docker network create{% if traefik_ipv6 %} --ipv6{% endif %}{% if traefik_subnet != "" %} --subnet={{ traefik_subnet }}{% endif %} traefik'
   tags:
     - traefik
 
