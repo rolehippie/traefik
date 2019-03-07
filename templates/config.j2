@@ -2,6 +2,7 @@ defaultEntryPoints = ["http", "https"]
 logLevel = "INFO"
 checkNewVersion = false
 sendAnonymousUsage = true
+insecureSkipVerify = {{ traefik_insecure_skip_verify | lower }}
 
 [entryPoints]
   [entryPoints.traefik]
