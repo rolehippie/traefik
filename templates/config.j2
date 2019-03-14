@@ -91,7 +91,7 @@ insecureSkipVerify = {{ traefik_insecure_skip_verify | lower }}
   watch = true
   exposedbydefault = false
 
-{% if traefik_frontends | default(False) or traefik_backends | default(False) %}
+{% if traefik_frontends | default(False) or traefik_backends | default(False) or traefik_certificates | default(False) %}
 [file]
   watch = true
 {% endif %}
