@@ -149,3 +149,15 @@ insecureSkipVerify = {{ traefik_insecure_skip_verify | lower }}
       contentTypeNosniff = true
 {% endfor %}
 {% endif %}
+{% if traefik_certificates | default(False) %}
+
+{% for certificate in traefik_certificates %}
+[[tls]]
+{% if certificate.entrypoints | default(False) %}
+  entryPoints = ["{{ certificate.entrypoints | join('", "') }}"]
+{% endif %}
+  [tls.certificate]
+    certFile = "{{ certificate.crt }}"
+    keyFile = "{{ certificate.key }}"
+{% endfor %}
+{% endif %}

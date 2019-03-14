@@ -7,6 +7,7 @@ traefik_ports: []
 traefik_entrypoints: []
 traefik_backends: []
 traefik_frontends: []
+traefik_certificates: []
 traefik_ipv6: True
 traefik_insecure_skip_verify: True
 traefik_subnet: fd00:dead:beef::/48
