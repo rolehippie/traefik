@@ -105,7 +105,7 @@ insecureSkipVerify = {{ traefik_insecure_skip_verify | lower }}
       [backends.{{ backend.name }}.servers.{{ loop.index }}]
         url = "{{ server.url }}"
 {% endfor %}
-{% if backend.healthcheck %}
+{% if backend.healthcheck | default(False) %}
     [backends.{{ backend.name }}.healthcheck]
       path = "{{ backend.healthcheck.path | default("/health") }}"
       interval = "{{ backend.healthcheck.interval | default("30s") }}"
