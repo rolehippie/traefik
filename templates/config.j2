@@ -109,8 +109,8 @@ insecureSkipVerify = {{ traefik_insecure_skip_verify | lower }}
     [backends.{{ backend.name }}.healthcheck]
       path = "{{ backend.healthcheck.path | default("/health") }}"
       interval = "{{ backend.healthcheck.interval | default("30s") }}"
-      {% if backend.healthcheck.schema is defined %}hostname = "{{ backend.healthcheck.hostname }}"{% endif %}
-      {% if backend.healthcheck.schema is defined %}port = "{{ backend.healthcheck.port }}"{% endif %}
+      {% if backend.healthcheck.hostname is defined %}hostname = "{{ backend.healthcheck.hostname }}"{% endif %}
+      {% if backend.healthcheck.port is defined %}port = "{{ backend.healthcheck.port }}"{% endif %}
       {% if backend.healthcheck.schema is defined %}schema = "{{ backend.healthcheck.schema }}"{% endif %}
 {% endif %}
 {% endfor %}
