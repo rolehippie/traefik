@@ -12,7 +12,7 @@ EnvironmentFile=/etc/environment
 ExecStop=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker stop %p || true'
 ExecStartPre=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker kill %p || true'
 ExecStartPre=/bin/sh -c '/usr/bin/docker ps -a | /bin/grep %p 1> /dev/null && /usr/bin/docker rm %p || true'
-ExecStartPre=/usr/bin/docker pull library/traefik:1.7-alpine
+ExecStartPre=/usr/bin/docker pull library/traefik:1.7.14-alpine
 ExecStart=/usr/bin/docker run --rm \
   --name %p \
   --hostname %p \
@@ -32,7 +32,7 @@ ExecStart=/usr/bin/docker run --rm \
 {% for port in traefik_ports %}
   --publish {{ port }} \
 {% endfor %}
-  library/traefik:1.7-alpine \
+  library/traefik:1.7.14-alpine \
   -c /etc/traefik/config.toml
 
 [Install]
