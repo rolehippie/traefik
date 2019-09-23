@@ -47,9 +47,23 @@ insecureSkipVerify = {{ traefik_insecure_skip_verify | lower }}
   storage = "/etc/traefik/acme.json"
   entryPoint = "https"
   onHostRule = true
+{% if traefik_letsencrypt_http_challenge | default(True) %}
 
   [acme.httpChallenge]
     entryPoint = "http"
+{% endif %}
+{% if traefik_letsencrypt_dns_challenge | default(True) %}
+
+  [acme.dnsChallenge]
+    provider = "{{ traefik_letsencrypt_dns_provider }}"
+    resolvers = {{ traefik_letsencrypt_dns_presolvers | to_json }}
+{% endif %}
+{% for item in traefik_letsencrypt_domains %}
+
+  [[acme.domains]]
+  main = "{{ item.main }}"
+  sans = {{ item.sans | to_json }}
+{% endfor %}
 {% endif %}
 
 [api]
