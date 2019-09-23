@@ -1,6 +1,12 @@
 traefik_domain:
-traefik_letsencrypt: True
 traefik_email:
+traefik_letsencrypt: True
+traefik_letsencrypt_http_challenge: True
+traefik_letsencrypt_dns_challenge: False
+traefik_letsencrypt_dns_provider:
+traefik_letsencrypt_dns_presolvers:
+  - 1.1.1.1:53
+traefik_letsencrypt_domains: []
 traefik_ciphers:
   - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
   - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
@@ -22,3 +28,4 @@ traefik_certificates: []
 traefik_ipv6: True
 traefik_insecure_skip_verify: True
 traefik_subnet: fd00:dead:beef::/48
+traefik_environment: []
