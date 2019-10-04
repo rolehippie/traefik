@@ -1,13 +1,113 @@
-traefik_domain:
-traefik_email:
-traefik_letsencrypt: True
-traefik_letsencrypt_http_challenge: True
-traefik_letsencrypt_dns_challenge: False
-traefik_letsencrypt_dns_provider:
-traefik_letsencrypt_dns_presolvers:
-  - 1.1.1.1:53
-traefik_letsencrypt_domains: []
-traefik_ciphers:
+traefik_image: library/traefik:2.0
+
+traefik_force_restart: False
+traefik_network_ipv6: False
+traefik_network_range:
+
+traefik_dashboard_host_rule: '{{ ansible_fqdn }}'
+traefik_dashboard_http_entrypoint: http
+traefik_dashboard_https_entrypoint: https
+traefik_dashboard_users: []
+traefik_dashboard_middlewares:
+  - traefik@file
+
+traefik_environment_variables: []
+traefik_root_certificates: []
+traefik_check_new_version: False
+traefik_send_anonymous_usage: True
+traefik_insecure_skip_verify: True
+traefik_max_idle_conns: 100
+traefik_forwarding_dial_timeout: 30
+traefik_forwarding_response_timeout: 0
+traefik_forwarding_idle_timeout: 90
+
+traefik_log_level: DEBUG
+traefik_log_format: common
+
+traefik_accesslog_format: common
+traefik_accesslog_buffer: 0
+
+traefik_standard_ports:
+  - 80:80
+  - 443:443
+traefik_additional_ports: []
+
+traefik_standard_entrypoints:
+  - name: metrics
+    address: :8082
+  - name: traefik
+    address: :8080
+  - name: http
+    address: :80
+  - name: https
+    address: :443
+traefik_additional_entrypoints: []
+
+traefik_standard_middlewares:
+  - name: traefik
+    kind: basicAuth
+    attrs:
+      users: '{{ traefik_dashboard_users }}'
+      realm: Traefik
+  - name: https
+    kind: redirectScheme
+    attrs:
+      scheme: https
+      permanent: True
+  - name: secure
+    kind: headers
+    attrs:
+      forceSTSHeader: True
+      stsIncludeSubdomains: False
+      stsPreload: True
+      stsSeconds: 315360000
+      sslRedirect: True
+      customFrameOptionsValue: SAMEORIGIN
+      contentTypeNosniff: True
+      browserXssFilter: True
+      referrerPolicy: strict-origin-when-cross-origin
+traefik_additional_middlewares: []
+
+traefik_provider_throttle_duration: 0
+traefik_docker_exposed_by_default: False
+traefik_docker_bind_port_ip: False
+traefik_docker_network_name: traefik
+traefik_docker_default_rule: !unsafe 'Host(`{{ normalize .Name }}`)'
+
+traefik_api_enabled: True
+traefik_api_insecure: False
+traefik_api_dashboard: True
+traefik_api_debug: False
+
+traefik_prometheus_enabled: True
+traefik_prometheus_entrypoint: metrics
+traefik_prometheus_buckets: [0.1, 0.3, 1.2, 5.0]
+traefik_prometheus_entrypoint_labels: True
+traefik_prometheus_service_labels: True
+
+traefik_tracing_enabled: False
+traefik_tracing_service_name: traefik
+traefik_tracing_name_limit: 0
+traefik_tracing_sampling_server:
+traefik_tracing_sampling_type: const
+traefik_tracing_sampling_param: 1.0
+traefik_tracing_local_agent:
+traefik_tracing_128bit_spans: False
+traefik_tracing_propagation_format: jaeger
+traefik_tracing_header_name: uber-trace-id
+traefik_tracing_collector_endpoint:
+traefik_tracing_collector_user:
+traefik_tracing_collector_password:
+
+traefik_hostresolver_cname_flattening: False
+traefik_hostresolver_resolv_config: /etc/resolv.conf
+traefik_hostresolver_resolv_depth: 5
+
+traefik_tls_min_version: VersionTLS12
+traefik_tls_default_certificate:
+traefik_tls_standard_certificates: []
+traefik_tls_additional_certificates: []
+traefik_tls_cipher_suites:
   - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
   - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
   - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
@@ -18,14 +118,3 @@ traefik_ciphers:
   - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
   - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
   - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
-traefik_users: []
-traefik_certs: []
-traefik_ports: []
-traefik_entrypoints: []
-traefik_backends: []
-traefik_frontends: []
-traefik_certificates: []
-traefik_ipv6: True
-traefik_insecure_skip_verify: True
-traefik_subnet: fd00:dead:beef::/48
-traefik_environment: []

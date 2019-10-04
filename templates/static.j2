@@ -1,0 +1,118 @@
+tls:
+  options:
+    default:
+      minVersion: {{ traefik_tls_min_version }}
+      cipherSuites:
+        {{ traefik_tls_cipher_suites | to_nice_yaml | trim | indent(width=8, indentfirst=False) }}
+{% if traefik_tls_default_certificate | default(False) %}
+
+  stores:
+    default:
+      defaultCertificate:
+        certFile: {{ traefik_tls_default_certificate.crt }}
+        keyFile: {{ traefik_tls_default_certificate.key }}
+{% endif %}
+{% if traefik_tls_standard_certificates | default(False) or traefik_tls_additional_certificates | default(False) %}
+
+  certificates:
+{% for item in traefik_tls_standard_certificates + traefik_tls_additional_certificates %}
+    - certFile: {{ item.crt }}
+      keyFile: {{ item.key }}
+{% endfor %}
+{% endif %}
+
+http:
+  middlewares:
+{% for item in traefik_standard_middlewares + traefik_additional_middlewares %}
+    {{ item.name }}:
+      {{ item.kind }}:
+        {{ item.attrs | to_nice_yaml | trim | indent(width=8, indentfirst=False) }}
+{% endfor %}
+{% if traefik_http_services | default(False) %}
+  services:
+{% for item in traefik_http_services %}
+    {{ item.name }}:
+{% if item.weighted | default(False) %}
+      weighted:
+        services:
+          {{ item.weighted | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+{% endif %}
+{% if item.mirroring | default(False) %}
+      mirroring:
+        service: {{ item.mirroring.service }}
+        mirrors:
+          {{ item.mirroring.mirrors | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+{% endif %}
+{% if item.balancer | default(False) %}
+      loadBalancer:
+        passHostHeader: {{ item.balancer.pass_host_header | default(True) }}
+{% if item.balancer.healthcheck | default(False) %}
+        healthCheck:
+          {{ item.balancer.healthcheck | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+{% endif %}
+        servers:
+          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if traefik_http_routers | default(False) %}
+  routers:
+{% for item in traefik_http_routers %}
+    {{ item.name }}:
+      entryPoints: {{ item.entrypoints | default([]) | to_yaml | trim }}
+      rule: {{ item.rule }}
+      priority: {{ item.priority | default(0) }}
+      middlewares: {{ item.middlewares | default([]) | to_yaml | trim }}
+      service: {{ item.service }}
+{% if item.tls | default(False) %}
+      tls:
+        options: {{ item.tls.options | default("default") }}
+{% if item.tls.resolver | default(False) %}
+        certResolver: {{ item.tls.resolver }}
+{% endif %}
+{% if item.tls.domains | default(False) %}
+        domains:
+          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+tcp:
+{% if traefik_tcp_services | default(False) %}
+  services:
+{% for item in traefik_tcp_services %}
+    {{ item.name }}:
+{% if item.weighted | default(False) %}
+      weighted:
+        services:
+          {{ item.weighted | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+{% endif %}
+{% if item.balancer | default(False) %}
+      loadBalancer:
+        terminationDelay: {{ item.balancer.termination_delay | default(100) }}
+        servers:
+          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if traefik_tcp_routers | default(False) %}
+  routers:
+{% for item in traefik_tcp_routers %}
+    {{ item.name }}:
+      entryPoints: {{ item.entrypoints | default([]) | to_yaml | trim }}
+      rule: {{ item.rule }}
+      service: {{ item.service }}
+{% if item.tls | default(False) %}
+      tls:
+        options: {{ item.tls.options | default("default") }}
+{% if item.tls.resolver | default(False) %}
+        certResolver: {{ item.tls.resolver }}
+{% endif %}
+{% if item.tls.domains | default(False) %}
+        domains:
+          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
