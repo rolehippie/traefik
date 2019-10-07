@@ -80,6 +80,8 @@ traefik_api_insecure: False
 traefik_api_dashboard: True
 traefik_api_debug: False
 
+traefik_ping_entrypoint:
+
 traefik_prometheus_enabled: True
 traefik_prometheus_entrypoint: metrics
 traefik_prometheus_buckets: [0.1, 0.3, 1.2, 5.0]

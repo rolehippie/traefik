@@ -68,7 +68,10 @@ api:
 {% endif %}
 {% if traefik_prometheus_enabled %}
 
-ping: {}
+ping:
+{% if traefik_ping_entrypoint | default(False) %}
+  entryPoint: {{ traefik_ping_entrypoint }}
+{% endif %}
 
 metrics:
   prometheus:
