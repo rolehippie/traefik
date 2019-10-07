@@ -45,10 +45,6 @@ ExecStart=/usr/bin/docker run --rm \
   --volume /etc/ssl:/etc/ssl:ro \
   --volume /etc/traefik:/etc/traefik \
   --volume /var/run/docker.sock:/var/run/docker.sock \
-  --health-cmd '/usr/local/bin/traefik healthcheck' \
-  --health-interval 10s \
-  --health-retries 20 \
-  --health-timeout 10s \
 {% for port in traefik_standard_ports %}
   --publish {{ port }} \
 {% endfor %}
