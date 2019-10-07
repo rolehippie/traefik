@@ -5,6 +5,7 @@ traefik_network_ipv6: False
 traefik_network_range:
 
 traefik_dashboard_host_rule: '{{ ansible_fqdn }}'
+traefik_dashboard_path_rule: /metrics
 traefik_dashboard_http_entrypoint: http
 traefik_dashboard_https_entrypoint: https
 traefik_dashboard_users: []
