@@ -101,6 +101,8 @@ traefik_tracing_collector_endpoint:
 traefik_tracing_collector_user:
 traefik_tracing_collector_password:
 
+traefik_cert_resolvers: []
+
 traefik_hostresolver_cname_flattening: False
 traefik_hostresolver_resolv_config: /etc/resolv.conf
 traefik_hostresolver_resolv_depth: 5

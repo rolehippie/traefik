@@ -103,10 +103,10 @@ tracing:
       user: {{ traefik_tracing_collector_user }}
       password: {{ traefik_tracing_collector_password }}
 {% endif %}
-{% if traefic_cert_resolvers | default(False) %}
+{% if traefik_cert_resolvers | default(False) %}
 
 certificatesResolvers:
-{% for item in traefic_cert_resolvers %}
+{% for item in traefik_cert_resolvers %}
   {{ item.name }}:
     acme:
       email: {{ item.email }}
