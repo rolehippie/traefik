@@ -21,7 +21,7 @@ traefik_forwarding_dial_timeout: 30
 traefik_forwarding_response_timeout: 0
 traefik_forwarding_idle_timeout: 90
 
-traefik_log_level: DEBUG
+traefik_log_level: ERROR
 traefik_log_format: common
 
 traefik_accesslog_format: common
