@@ -1,14 +1,14 @@
 - name: check network
   changed_when: False
   failed_when: False
-  command: 'docker network inspect traefik'
-  register: traefik_network
+  command: 'docker network inspect {{ traefik_docker_network_name }}'
+  register: traefik_network_check
   tags:
     - traefik
 
 - name: define network
-  when: traefik_network.rc is defined and traefik_network.rc != 0
-  command: 'docker network create{% if traefik_ipv6 %} --ipv6{% endif %}{% if traefik_subnet != "" %} --subnet={{ traefik_subnet }}{% endif %} traefik'
+  when: traefik_network_check.rc is defined and traefik_network_check.rc != 0
+  command: 'docker network create{% if traefik_network_ipv6 %} --ipv6{% endif %}{% if traefik_network_range != "" %} --subnet={{ traefik_network_range }}{% endif %} {{ traefik_docker_network_name }}'
   tags:
     - traefik
 
@@ -21,34 +21,21 @@
   tags:
     - traefik
 
-- name: write keys
-  notify:
-    - restart traefik
-  with_items: '{{ traefik_certs }}'
-  copy:
-    content: '{{ item.key }}'
-    dest: /etc/ssl/private/{{ item.name }}.pem
-    mode: u=rw,g=,o=
-  tags:
-    - traefik
-
-- name: write certs
-  notify:
-    - restart traefik
-  with_items: '{{ traefik_certs }}'
-  copy:
-    content: '{{ item.cert }}'
-    dest: /etc/ssl/certs/{{ item.name }}.pem
-    mode: u=rw,g=,o=
-  tags:
-    - traefik
-
 - name: write config
   notify:
-    - restart traefik
+    - reload traefik
   template:
     src: config.j2
-    dest: /etc/traefik/config.toml
+    dest: /etc/traefik/traefik.yml
+  tags:
+    - traefik
+
+- name: write static
+  notify:
+    - reload traefik
+  template:
+    src: static.j2
+    dest: /etc/traefik/static.yml
   tags:
     - traefik
 

@@ -3,3 +3,9 @@
     name: traefik
     state: restarted
     daemon_reload: yes
+
+- name: reload traefik
+  systemd:
+    name: traefik
+    state: '{% if traefik_force_restart %}restarted{% else %}reloaded{% endif %}'
+    daemon_reload: yes

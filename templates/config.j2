@@ -1,163 +1,136 @@
-defaultEntryPoints = ["http", "https"]
-logLevel = "INFO"
-checkNewVersion = false
-sendAnonymousUsage = true
-insecureSkipVerify = {{ traefik_insecure_skip_verify | lower }}
+global:
+  checkNewVersion: {{ traefik_check_new_version | lower }}
+  sendAnonymousUsage: {{ traefik_send_anonymous_usage | lower }}
 
-[entryPoints]
-  [entryPoints.traefik]
-    address = ":8000"
-    [entryPoints.traefik.auth.basic]
-      users = ["{{ traefik_users | join('", "') }}"]
-  [entryPoints.http]
-    address = ":80"
-    [entryPoints.http.redirect]
-      entryPoint = "https"
-  [entryPoints.https]
-    address = ":443"
-    [entryPoints.https.tls]
-      cipherSuites = {{ traefik_ciphers | to_json }}
-{% for cert in traefik_certs %}
-      [[entryPoints.https.tls.certificates]]
-        CertFile = "/etc/ssl/certs/{{ cert.name }}.pem"
-        KeyFile = "/etc/ssl/private/{{ cert.name }}.pem"
-{% endfor %}
+serversTransport:
+  insecureSkipVerify: {{ traefik_insecure_skip_verify | lower }}
+  rootCAs: {{ traefik_root_certificates | to_yaml | trim }}
+  maxIdleConnsPerHost: {{ traefik_max_idle_conns }}
+  forwardingTimeouts:
+    dialTimeout: {{ traefik_forwarding_dial_timeout }}
+    responseHeaderTimeout: {{ traefik_forwarding_response_timeout }}
+    idleConnTimeout: {{ traefik_forwarding_idle_timeout }}
 
-{% for item in traefik_entrypoints %}
-  [entryPoints.{{ item.name }}]
-    address = "{{ item.address }}"
-{% if item.redirect | default(False) %}
-    [entryPoints.{{ item.name }}.redirect]
-      entryPoint = "{{ item.redirect }}"
+log:
+  level: {{ traefik_log_level }}
+  format: {{ traefik_log_format }}
+
+accessLog:
+  format: {{ traefik_accesslog_format }}
+  bufferingSize: {{ traefik_accesslog_buffer }}
+
+entryPoints:
+{% for item in traefik_standard_entrypoints + traefik_additional_entrypoints %}
+  {{ item.name }}:
+    address: {{ item.address }}
+    transport:
+      lifeCycle:
+        requestAcceptGraceTimeout: {{ item.request_accept_grace_timeout | default(0) }}
+        graceTimeOut: {{ item.grace_timeout | default(10) }}
+      respondingTimeouts:
+        readTimeout: {{ item.read_timeout | default(0) }}
+        writeTimeout: {{ item.write_timeout | default(0) }}
+        idleTimeout: {{ item.idle_timeout | default(180) }}
+{% if item.proxy_protocol | default(False) %}
+
+    proxyProtocol:
+      insecure: {{ item.proxy_protocol.insecure | default(True) | lower }}
+      trustedIPs: {{ item.proxy_protocol.trusted_ips | to_yaml | trim }}
 {% endif %}
-{% if item.tls | default(False) %}
-    [entryPoints.{{ item.name }}.tls]
-      cipherSuites = {{ traefik_ciphers | to_json }}
-{% for cert in item.certs | default([]) %}
-      [[entryPoints.{{ item.name }}.tls.certificates]]
-        CertFile = "/etc/ssl/certs/{{ cert.name }}.pem"
-        KeyFile = "/etc/ssl/private/{{ cert.name }}.pem"
-{% endfor %}
-{% endif %}
-{% endfor %}
+{% if item.forwarded_headers | default(False) %}
 
-{% if traefik_letsencrypt | default(False) %}
-[acme]
-  email = "{{ traefik_email }}"
-  storage = "/etc/traefik/acme.json"
-  entryPoint = "https"
-  onHostRule = true
-{% if traefik_letsencrypt_http_challenge | default(True) %}
-
-  [acme.httpChallenge]
-    entryPoint = "http"
-{% endif %}
-{% if traefik_letsencrypt_dns_challenge | default(True) %}
-
-  [acme.dnsChallenge]
-    provider = "{{ traefik_letsencrypt_dns_provider }}"
-    resolvers = {{ traefik_letsencrypt_dns_presolvers | to_json }}
-{% endif %}
-{% for item in traefik_letsencrypt_domains %}
-
-  [[acme.domains]]
-  main = "{{ item.main }}"
-  sans = {{ item.sans | to_json }}
-{% endfor %}
-{% endif %}
-
-[api]
-  entryPoint = "traefik"
-  dashboard = true
-
-[ping]
-  entryPoint = "traefik"
-
-[metrics]
-  [metrics.prometheus]
-    entryPoint = "traefik"
-    buckets = [0.1, 0.3, 1.2, 5.0]
-
-[docker]
-  domain = "{{ traefik_domain }}"
-  watch = true
-  exposedbydefault = false
-
-{% if traefik_frontends | default(False) or traefik_backends | default(False) or traefik_certificates | default(False) %}
-[file]
-  watch = true
-{% endif %}
-
-{% if traefik_backends | default(False) %}
-[backends]
-{% for backend in traefik_backends %}
-  [backends.{{ backend.name }}]
-    [backends.{{ backend.name }}.servers]
-{% for server in backend.servers %}
-      [backends.{{ backend.name }}.servers.{{ loop.index }}]
-        url = "{{ server.url }}"
-{% endfor %}
-{% if backend.healthcheck | default(False) %}
-    [backends.{{ backend.name }}.healthcheck]
-      path = "{{ backend.healthcheck.path | default("/health") }}"
-      interval = "{{ backend.healthcheck.interval | default("30s") }}"
-      {% if backend.healthcheck.hostname is defined %}hostname = "{{ backend.healthcheck.hostname }}"{% endif %}
-      {% if backend.healthcheck.port is defined %}port = "{{ backend.healthcheck.port }}"{% endif %}
-      {% if backend.healthcheck.schema is defined %}schema = "{{ backend.healthcheck.schema }}"{% endif %}
+    forwardedHeaders:
+      insecure: {{ item.forwarded_headers.insecure | default(True) | lower }}
+      trustedIPs: {{ item.forwarded_headers.trusted_ips | to_yaml | trim }}
 {% endif %}
 {% endfor %}
 
-{% endif %}
-{% if traefik_frontends | default(False) %}
-[frontends]
-{% for frontend in traefik_frontends %}
-  [frontends.{{ frontend.name }}]
-{% if frontend.backend | default(False) %}
-    backend = "{{ frontend.backend }}"
-{% endif %}
-{% if frontend.entrypoints | default(False) %}
-    entrypoints = [{% for e in frontend.entrypoints %}"{{ e }}"{% if not loop.last %}, {% endif %}{% endfor %}]
-{% endif %}
-    passHostHeader = {{ frontend.pass_header | default(True) | lower }}
-{% if frontend.priority | default(False) %}
-    priority = {{ frontend.priority }}
-{% endif %}
-{% if frontend.rules | default(False) %}
-    [frontends.{{ frontend.name }}.routes]
-{% for rule in frontend.rules | default([]) %}
-      [frontends.{{ frontend.name }}.routes.{{ loop.index }}]
-        rule = "{{ rule }}"
-{% endfor %}
-{% endif %}
-{% if frontend.redirect | default(False) %}
-    [frontends.{{ frontend.name }}.redirect]
-{% if frontend.redirect.entrypoint | default(False) %}
-      entryPoint = "{{ frontend.redirect.entrypoint }}"
-{% endif %}
-      regex = "{{ frontend.redirect.regex }}"
-      replacement = "{{ frontend.redirect.replacement }}"
-      permanent = {{ frontend.redirect.permanent | default(False) | lower }}
-{% endif %}
-    [frontends.{{ frontend.name }}.headers]
-      forceSTSHeader = true
-      STSIncludeSubdomains = false
-      STSPreload = true
-      STSSeconds = 315360000
-      referrerPolicy = "strict-origin-when-cross-origin"
-      customFrameOptionsValue = "SAMEORIGIN"
-      browserXSSFilter = true
-      contentTypeNosniff = true
-{% endfor %}
-{% endif %}
-{% if traefik_certificates | default(False) %}
+providers:
+  providersThrottleDuration: {{ traefik_provider_throttle_duration }}
 
-{% for certificate in traefik_certificates %}
-[[tls]]
-{% if certificate.entrypoints | default(False) %}
-  entryPoints = ["{{ certificate.entrypoints | join('", "') }}"]
+  docker:
+    endpoint: unix:///var/run/docker.sock
+    watch: true
+    exposedByDefault: {{ traefik_docker_exposed_by_default | lower }}
+    useBindPortIP: {{ traefik_docker_bind_port_ip | lower }}
+    network: {{ traefik_docker_network_name }}
+    defaultRule: {{ traefik_docker_default_rule }}
+
+  file:
+    filename: /etc/traefik/static.yml
+    watch: true
+{% if traefik_api_enabled %}
+
+api:
+  insecure: {{ traefik_api_insecure | lower }}
+  dashboard: {{ traefik_api_dashboard | lower }}
+  debug: {{ traefik_api_debug | lower }}
 {% endif %}
-  [tls.certificate]
-    certFile = "{{ certificate.crt }}"
-    keyFile = "{{ certificate.key }}"
+{% if traefik_prometheus_enabled %}
+
+{% if traefik_ping_entrypoint | default(False) %}
+ping:
+  entryPoint: {{ traefik_ping_entrypoint }}
+{% else %}
+ping: {}
+{% endif %}
+
+metrics:
+  prometheus:
+{% if traefik_prometheus_entrypoint | default(False) %}
+    entryPoint: {{ traefik_prometheus_entrypoint }}
+{% endif %}
+    buckets: {{ traefik_prometheus_buckets | to_yaml | trim }}
+    addEntryPointsLabels: {{ traefik_prometheus_entrypoint_labels | lower }}
+    addServicesLabels: {{ traefik_prometheus_service_labels | lower }}
+{% endif %}
+{% if traefik_tracing_enabled %}
+
+tracing:
+  serviceName: {{ traefik_tracing_service_name }}
+  spanNameLimit: {{ traefik_tracing_name_limit }}
+
+  jaeger:
+    samplingServerURL: {{ traefik_tracing_sampling_server }}
+    samplingType: {{ traefik_tracing_sampling_type }}
+    samplingParam: {{ traefik_tracing_sampling_param }}
+    localAgentHostPort: {{ traefik_tracing_local_agent }}
+    gen128Bit: {{ traefik_tracing_128bit_spans | lower }}
+    propagation: {{ traefik_tracing_propagation_format }}
+    traceContextHeaderName: {{ traefik_tracing_header_name }}
+    collector:
+      endpoint: {{ traefik_tracing_collector_endpoint }}
+      user: {{ traefik_tracing_collector_user }}
+      password: {{ traefik_tracing_collector_password }}
+{% endif %}
+{% if traefik_cert_resolvers | default(False) %}
+
+certificatesResolvers:
+{% for item in traefik_cert_resolvers %}
+  {{ item.name }}:
+    acme:
+      email: {{ item.email }}
+      caServer: {{ item.server | default("https://acme-v02.api.letsencrypt.org/directory") }}
+      storage: {{ item.storage | default("/etc/traefik/acme.json") }}
+      keyType: {{ item.key_type | default("RSA4096") }}
+{% if item.dns_challenge | default(False) %}
+      dnsChallenge:
+        provider: {{ item.dns_challenge.provider }}
+        delayBeforeCheck: {{ item.dns_challenge.delay | default(0) }}
+        disablePropagationCheck: false
+        resolvers: {{ item.dns_challenge.resolvers | default([]) | to_yaml | trim }}
+{% endif %}
+{% if item.http_challenge | default(False) %}
+      httpChallenge:
+        entryPoint: {{ item.http_challenge.entrypoint }}
+{% endif %}
+{% if item.tls_challenge | default(False) %}
+      tlsChallenge: {}
+{% endif %}
 {% endfor %}
 {% endif %}
+
+hostResolver:
+  cnameFlattening: {{ traefik_hostresolver_cname_flattening | lower }}
+  resolvConfig: {{ traefik_hostresolver_resolv_config }}
+  resolvDepth: {{ traefik_hostresolver_resolv_depth }}
