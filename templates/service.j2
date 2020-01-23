@@ -1,7 +1,7 @@
 [Unit]
 Description=Traefik
 
-Requires=docker.service
+Wants=docker.service
 After=docker.service
 
 [Service]
