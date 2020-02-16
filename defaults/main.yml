@@ -7,6 +7,7 @@ traefik_network_range:
 traefik_dashboard_host_rule: '{{ ansible_fqdn }}'
 traefik_dashboard_http_entrypoint: http
 traefik_dashboard_https_entrypoint: https
+traefik_dashboard_cert_resolver:
 traefik_dashboard_users: []
 traefik_dashboard_middlewares:
   - traefik@file
