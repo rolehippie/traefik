@@ -146,7 +146,7 @@ traefik_docker_bind_port_ip: False
 traefik_docker_network_name: traefik
 
 # @var traefik_docker_default_rule:description: Default rule for docker provider
-traefik_docker_default_rule: '{% raw %}Host(`{{ normalize .Name }}`){% endraw %}'
+traefik_docker_default_rule: !unsafe 'Host(`{{ normalize .Name }}`)'
 
 # @var traefik_api_enabled:description:  Enable API endpoints
 traefik_api_enabled: True
