@@ -15,6 +15,7 @@
 - name: create dirs
   with_items:
     - /etc/traefik
+    - /etc/traefik/config.d
   file:
     path: '{{ item }}'
     state: directory
@@ -35,7 +36,7 @@
     - reload traefik
   template:
     src: static.j2
-    dest: /etc/traefik/static.yml
+    dest: /etc/traefik/config.d/static.yml
   tags:
     - traefik
 
