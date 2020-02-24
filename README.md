@@ -286,7 +286,7 @@ Default rule for docker provider
 #### Default value
 
 ```YAML
-traefik_docker_default_rule: '{% raw %}Host(`{{ normalize .Name }}`){% endraw %}'
+traefik_docker_default_rule: Host(`{{ normalize .Name }}`)
 ```
 
 ### traefik_docker_exposed_by_default
