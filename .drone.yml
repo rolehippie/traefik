@@ -1,0 +1,161 @@
+---
+kind: pipeline
+name: linting
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: later
+  image: xoxys/ansible-later:latest
+  pull: always
+  commands:
+  - ansible-later
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/**
+  - refs/pull/**
+
+---
+kind: pipeline
+name: testing
+
+platform:
+  os: linux
+  arch: amd64
+
+concurrency:
+  limit: 1
+
+workspace:
+  base: /drone/src
+  path: ${DRONE_REPO_NAME}
+
+steps:
+- name: molecule
+  image: xoxys/molecule:2
+  pull: always
+  environment:
+    HCLOUD_TOKEN:
+      from_secret: hcloud_token
+  commands:
+  - molecule test -s default
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/**
+  - refs/pull/**
+
+depends_on:
+- linting
+
+---
+kind: pipeline
+name: docs
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  disable: true
+
+steps:
+- name: clone
+  image: plugins/git-action:latest
+  pull: always
+  settings:
+    actions:
+    - clone
+    remote: https://github.com/${DRONE_REPO}
+    branch: ${DRONE_SOURCE_BRANCH}
+    path: /drone/src
+    netrc_machine: github.com
+    netrc_username:
+      from_secret: github_username
+    netrc_password:
+      from_secret: github_token
+
+- name: generate
+  image: xoxys/ansible-doctor:latest
+  pull: always
+  environment:
+    ANSIBLE_DOCTOR_LOG_LEVEL: INFO
+    ANSIBLE_DOCTOR_FORCE_OVERWRITE: true
+    ANSIBLE_DOCTOR_EXCLUDE_FILES: molecule/
+    ANSIBLE_DOCTOR_CUSTOM_HEADER: HEADER.md
+
+- name: diff
+  image: toolhippie/git:latest
+  pull: always
+  commands:
+    - git diff
+
+- name: commit
+  image: plugins/git-action:latest
+  pull: always
+  settings:
+    actions:
+    - commit
+    - push
+    remote: https://github.com/${DRONE_REPO}
+    branch: master
+    path: /drone/src
+    netrc_machine: github.com
+    netrc_username:
+      from_secret: github_username
+    netrc_password:
+      from_secret: github_token
+    author_email: "drone@webhippie.de"
+    author_name: Drone
+    message: "[skip ci] update readme"
+  when:
+    ref:
+    - refs/heads/master
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+depends_on:
+  - testing
+
+---
+kind: pipeline
+name: notify
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: notify
+  image: plugins/matrix
+  pull: always
+  settings:
+    homeserver: https://matrix.org
+    password:
+      from_secret: matrix_password
+    roomid:
+      from_secret: matrix_roomid
+    username:
+      from_secret: matrix_username
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/**
+  status:
+  - failure
+
+depends_on:
+  - linting
+  - testing
+  - docs
+
+...

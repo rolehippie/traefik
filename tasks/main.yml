@@ -1,18 +1,14 @@
-- name: check network
-  changed_when: False
-  failed_when: False
-  command: 'docker network inspect {{ traefik_docker_network_name }}'
-  register: traefik_network_check
+# Standards: 0.1
+---
+- name: Define docker network
+  docker_network:
+    name: '{{ traefik_docker_network_name }}'
+    enable_ipv6: '{{ traefik_network_ipv6 }}'
+    ipam_config: '{{ traefik_network_ipam_config }}'
   tags:
     - traefik
 
-- name: define network
-  when: traefik_network_check.rc is defined and traefik_network_check.rc != 0
-  command: 'docker network create{% if traefik_network_ipv6 %} --ipv6{% endif %}{% if traefik_network_range != "" %} --subnet={{ traefik_network_range }}{% endif %} {{ traefik_docker_network_name }}'
-  tags:
-    - traefik
-
-- name: create dirs
+- name: Create required dirs
   with_items:
     - /etc/traefik
     - /etc/traefik/config.d
@@ -22,43 +18,43 @@
   tags:
     - traefik
 
-- name: write config
+- name: Write general config
   notify:
-    - reload traefik
+    - Reload traefik
   template:
     src: config.j2
     dest: /etc/traefik/traefik.yml
   tags:
     - traefik
 
-- name: write static
+- name: Write static config
   notify:
-    - reload traefik
+    - Reload traefik
   template:
     src: static.j2
     dest: /etc/traefik/config.d/static.yml
   tags:
     - traefik
 
-- name: write default
+- name: Write env default
   notify:
-    - restart traefik
+    - Restart traefik
   template:
     src: default.j2
     dest: /etc/default/traefik
   tags:
     - traefik
 
-- name: prepare service
+- name: Write service file
   notify:
-    - restart traefik
+    - Restart traefik
   template:
     src: service.j2
     dest: /etc/systemd/system/traefik.service
   tags:
     - traefik
 
-- name: start service
+- name: Start traefik service
   systemd:
     name: traefik
     state: started
@@ -67,3 +63,5 @@
     enabled: yes
   tags:
     - traefik
+
+...

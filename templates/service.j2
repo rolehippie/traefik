@@ -26,6 +26,9 @@ ExecStart=/usr/bin/docker run --rm \
   --label traefik.http.routers.metrics.service=metrics@docker \
   --label traefik.http.routers.metrics.entrypoints={{ traefik_dashboard_https_entrypoint }} \
   --label traefik.http.routers.metrics.tls=true \
+{% if traefik_dashboard_cert_resolver | default(False) %}
+  --label traefik.http.routers.metrics.tls.certresolver={{ traefik_dashboard_cert_resolver }} \
+{% endif %}
   --label traefik.http.routers.metrics.middlewares={{ traefik_dashboard_middlewares | join(",") }} \
   --label traefik.http.routers.metrics-insecure.rule="Host(`{{ traefik_dashboard_host_rule }}`) && PathPrefix(`/metrics`)" \
   --label traefik.http.routers.metrics-insecure.service=metrics@docker \
@@ -48,10 +51,7 @@ ExecStart=/usr/bin/docker run --rm \
   --volume /etc/ssl:/etc/ssl:ro \
   --volume /etc/traefik:/etc/traefik \
   --volume /var/run/docker.sock:/var/run/docker.sock \
-{% for port in traefik_standard_ports %}
-  --publish {{ port }} \
-{% endfor %}
-{% for port in traefik_additional_ports %}
+{% for port in traefik_standard_ports + traefik_additional_ports %}
   --publish {{ port }} \
 {% endfor %}
   {{ traefik_image }}

@@ -1,11 +1,15 @@
-- name: restart traefik
+# Standards: 0.1
+---
+- name: Restart traefik
   systemd:
     name: traefik
     state: restarted
     daemon_reload: yes
 
-- name: reload traefik
+- name: Reload traefik
   systemd:
     name: traefik
-    state: '{% if traefik_force_restart %}restarted{% else %}reloaded{% endif %}'
+    state: '{{ "restarted" if traefik_force_restart else "reloaded" }}'
     daemon_reload: yes
+
+...
