@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: hetznercloud
+lint:
+  name: yamllint
+  enabled: False
+platforms:
+  - name: ubuntu-18.04-traefik
+    server_type: cx11
+    image: ubuntu-18.04
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    enabled: False
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
