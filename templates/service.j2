@@ -9,7 +9,7 @@ Restart=always
 RestartSec=10s
 EnvironmentFile=/etc/environment
 
-ExecReload=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker exec %p touch /etc/traefik/config.yml || true'
+ExecReload=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker exec %p touch /etc/traefik/static.yml || true'
 ExecStop=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker stop %p || true'
 ExecStartPre=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker kill %p || true'
 ExecStartPre=/bin/sh -c '/usr/bin/docker ps -a | /bin/grep %p 1> /dev/null && /usr/bin/docker rm %p || true'
