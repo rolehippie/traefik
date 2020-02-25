@@ -57,7 +57,7 @@ providers:
     defaultRule: {{ traefik_docker_default_rule }}
 
   file:
-    directory: /etc/traefik/config.d
+    filename: /etc/traefik/static.yml
     watch: true
 {% if traefik_api_enabled %}
 
