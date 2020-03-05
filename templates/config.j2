@@ -1,3 +1,4 @@
+#jinja2: lstrip_blocks: True
 global:
   checkNewVersion: {{ traefik_check_new_version | lower }}
   sendAnonymousUsage: {{ traefik_send_anonymous_usage | lower }}
@@ -53,7 +54,9 @@ providers:
     watch: true
     exposedByDefault: {{ traefik_docker_exposed_by_default | lower }}
     useBindPortIP: {{ traefik_docker_bind_port_ip | lower }}
+    {% if traefik_docker_network_name is defined and traefik_docker_network_name %}
     network: {{ traefik_docker_network_name }}
+    {% endif %}
     defaultRule: {{ traefik_docker_default_rule }}
 
   file:
