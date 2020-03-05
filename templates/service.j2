@@ -1,3 +1,4 @@
+#jinja2: lstrip_blocks: True
 [Unit]
 Description=Traefik
 
@@ -18,7 +19,9 @@ ExecStart=/usr/bin/docker run --rm \
   --name %p \
   --hostname %p \
   --label traefik.enable=true \
+{% if traefik_docker_network_name is defined and traefik_docker_network_name %}
   --label traefik.docker.network={{ traefik_docker_network_name }} \
+{% endif %}
   --label traefik.http.services.metrics.loadbalancer.server.port=8082 \
   --label traefik.http.services.metrics.loadbalancer.server.scheme=http \
   --label traefik.http.services.metrics.loadbalancer.passhostheader=true \
@@ -47,7 +50,9 @@ ExecStart=/usr/bin/docker run --rm \
   --label traefik.http.routers.traefik-insecure.entrypoints={{ traefik_dashboard_http_entrypoint }} \
   --label traefik.http.routers.traefik-insecure.middlewares={{ traefik_dashboard_middlewares | join(",") }} \
   --env-file /etc/default/traefik \
+{% if traefik_docker_network_name is defined and traefik_docker_network_name %}
   --network traefik \
+{% endif %}
   --volume /etc/ssl:/etc/ssl:ro \
   --volume /etc/traefik:/etc/traefik \
   --volume /var/run/docker.sock:/var/run/docker.sock \
