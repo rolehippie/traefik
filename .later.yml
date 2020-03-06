@@ -1,8 +1,5 @@
 ---
 rules:
-  exclude_filter:
-    - ANSIBLE0007
-
   exclude_files:
     - molecule/
 
