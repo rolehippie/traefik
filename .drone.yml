@@ -87,7 +87,7 @@ steps:
     ANSIBLE_DOCTOR_LOG_LEVEL: INFO
     ANSIBLE_DOCTOR_FORCE_OVERWRITE: true
     ANSIBLE_DOCTOR_EXCLUDE_FILES: molecule/
-    ANSIBLE_DOCTOR_CUSTOM_HEADER: HEADER.md
+    ANSIBLE_DOCTOR_CUSTOM_HEADER: doctor/HEADER.md
 
 - name: diff
   image: toolhippie/git:latest
