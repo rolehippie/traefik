@@ -2,9 +2,9 @@
 ---
 - name: Define docker network
   docker_network:
-    name: '{{ traefik_docker_network_name }}'
-    enable_ipv6: '{{ traefik_network_ipv6 }}'
-    ipam_config: '{{ traefik_network_ipam_config }}'
+    name: "{{ traefik_docker_network_name }}"
+    enable_ipv6: "{{ traefik_network_ipv6 }}"
+    ipam_config: "{{ traefik_network_ipam_config }}"
   tags:
     - traefik
 
@@ -12,7 +12,7 @@
   with_items:
     - /etc/traefik
   file:
-    path: '{{ item }}'
+    path: "{{ item }}"
     state: directory
   tags:
     - traefik
@@ -57,9 +57,9 @@
   systemd:
     name: traefik
     state: started
-    daemon_reload: yes
-    masked: no
-    enabled: yes
+    daemon_reload: True
+    masked: False
+    enabled: True
   tags:
     - traefik
 

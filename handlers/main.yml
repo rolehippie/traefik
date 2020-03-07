@@ -4,12 +4,12 @@
   systemd:
     name: traefik
     state: restarted
-    daemon_reload: yes
+    daemon_reload: True
 
 - name: Reload traefik
   systemd:
     name: traefik
     state: '{{ "restarted" if traefik_force_restart else "reloaded" }}'
-    daemon_reload: yes
+    daemon_reload: True
 
 ...
