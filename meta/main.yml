@@ -13,7 +13,7 @@ galaxy_info:
   galaxy_tags:
     - traefik
 
-dependencies:
-  - rolehippie.docker
+# rolehippie.docker
+dependencies: []
 
 ...
