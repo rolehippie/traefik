@@ -2,9 +2,7 @@
 ---
 # @meta author:value: [Thomas Boerger](https://github.com/tboerger)
 # @meta dependencies:value: >
-# [
-#   "[docker](https://github.com/rolehippie/docker)"
-# ]
+# [docker](https://github.com/rolehippie/docker)
 # @end
 galaxy_info:
   author: Thomas Boerger
