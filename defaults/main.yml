@@ -138,6 +138,7 @@ traefik_docker_bind_port_ip: False
 
 # @var traefik_docker_network_name:description: Docker network used by docker provider
 # @var traefik_docker_network_name:example: $ "traefik"
+traefik_docker_network_name:
 
 # @var traefik_docker_default_rule:description: Default rule for docker provider
 traefik_docker_default_rule: !unsafe 'Host(`{{ normalize .Name }}`)'
