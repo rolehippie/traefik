@@ -41,8 +41,6 @@ Ansible role to configure traefik
   * [traefik_log_format](#traefik_log_format)
   * [traefik_log_level](#traefik_log_level)
   * [traefik_max_idle_conns](#traefik_max_idle_conns)
-  * [traefik_network_ipam_config](#traefik_network_ipam_config)
-  * [traefik_network_ipv6](#traefik_network_ipv6)
   * [traefik_ping_entrypoint](#traefik_ping_entrypoint)
   * [traefik_prometheus_buckets](#traefik_prometheus_buckets)
   * [traefik_prometheus_enabled](#traefik_prometheus_enabled)
@@ -306,6 +304,12 @@ Docker network used by docker provider
 #### Default value
 
 ```YAML
+traefik_docker_network_name:
+```
+
+#### Example usage
+
+```YAML
 traefik_docker_network_name: traefik
 ```
 
@@ -447,26 +451,6 @@ Server transport max idle connections per host
 
 ```YAML
 traefik_max_idle_conns: 100
-```
-
-### traefik_network_ipam_config
-
-
-
-#### Default value
-
-```YAML
-traefik_network_ipam_config: []
-```
-
-### traefik_network_ipv6
-
-Enable ipv6 within docker network
-
-#### Default value
-
-```YAML
-traefik_network_ipv6: false
 ```
 
 ### traefik_ping_entrypoint
