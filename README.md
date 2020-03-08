@@ -842,7 +842,9 @@ traefik_tracing_service_name: traefik
 
 ## Dependencies
 
-- '[docker](https://github.com/rolehippie/docker)'
+- '['
+- '  "[docker](https://github.com/rolehippie/docker)"'
+- ']'
 
 ## License
 
