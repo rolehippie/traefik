@@ -53,7 +53,9 @@ providers:
     watch: true
     exposedByDefault: {{ traefik_docker_exposed_by_default | lower }}
     useBindPortIP: {{ traefik_docker_bind_port_ip | lower }}
+{% if traefik_docker_network_name | default(False) %}
     network: {{ traefik_docker_network_name }}
+{% endif %}
     defaultRule: {{ traefik_docker_default_rule }}
 
   file:

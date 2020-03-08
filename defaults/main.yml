@@ -6,12 +6,6 @@ traefik_image: library/traefik:2.0
 # @var traefik_force_restart:description: Force a restart of the service
 traefik_force_restart: False
 
-# @var traefik_network_ipv6:description: Enable ipv6 within docker network
-traefik_network_ipv6: False
-
-# @var traefik_network_ipam_config:description:
-traefik_network_ipam_config: []
-
 # @var traefik_dashboard_host_rule:description: Host rule for the dashboard
 traefik_dashboard_host_rule: '{{ ansible_fqdn }}'
 
@@ -143,7 +137,8 @@ traefik_docker_exposed_by_default: False
 traefik_docker_bind_port_ip: False
 
 # @var traefik_docker_network_name:description: Docker network used by docker provider
-traefik_docker_network_name: traefik
+# @var traefik_docker_network_name:example: $ "traefik"
+traefik_docker_network_name:
 
 # @var traefik_docker_default_rule:description: Default rule for docker provider
 traefik_docker_default_rule: !unsafe 'Host(`{{ normalize .Name }}`)'

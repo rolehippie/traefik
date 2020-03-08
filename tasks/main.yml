@@ -1,13 +1,5 @@
 # Standards: 0.1
 ---
-- name: Define docker network
-  docker_network:
-    name: "{{ traefik_docker_network_name }}"
-    enable_ipv6: "{{ traefik_network_ipv6 }}"
-    ipam_config: "{{ traefik_network_ipam_config }}"
-  tags:
-    - traefik
-
 - name: Create required dirs
   with_items:
     - /etc/traefik
