@@ -1,8 +1,14 @@
 # traefik
 
-[![Build Status](https://cloud.drone.io/api/badges/rolehippie/traefik/status.svg)](https://cloud.drone.io/rolehippie/traefik)
+[![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/traefik) [![Build Status](https://img.shields.io/drone/build/rolehippie/traefik/master?logo=drone)](https://cloud.drone.io/rolehippie/traefik) [![License: Apache-2.0](https://img.shields.io/github/license/rolehippie/traefik)](https://github.com/rolehippie/traefik/blob/master/LICENSE) 
 
-Ansible role to configure traefik
+Ansible role to install and configure Traefik reverse proxy. 
+
+## Sponsor 
+
+[![Proact Deutschland GmbH](https://proact.eu/wp-content/uploads/2020/03/proact-logo.png)](https://proact.eu) 
+
+Building and improving this Ansible role have been sponsored by my employer **Proact Deutschland GmbH**.
 
 ## Table of content
 
@@ -842,7 +848,7 @@ traefik_tracing_service_name: traefik
 
 ## Dependencies
 
-* [docker](https://github.com/rolehippie/docker)
+* [rolehippie.docker](https://github.com/rolehippie/docker)
 
 ## License
 
