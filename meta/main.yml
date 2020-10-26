@@ -1,19 +1,32 @@
-# Standards: 0.1
+# Standards: 1.2
 ---
 # @meta author:value: [Thomas Boerger](https://github.com/tboerger)
+# @meta description: >
+# [![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/traefik)
+# [![Build Status](https://img.shields.io/drone/build/rolehippie/traefik/master?logo=drone)](https://cloud.drone.io/rolehippie/traefik)
+# [![License: Apache-2.0](https://img.shields.io/github/license/rolehippie/traefik)](https://github.com/rolehippie/traefik/blob/master/LICENSE)
+#
+# Ansible role to install and configure Traefik reverse proxy.
+#
+# ## Sponsor
+#
+# [![Proact Deutschland GmbH](https://proact.eu/wp-content/uploads/2020/03/proact-logo.png)](https://proact.eu)
+#
+# Building and improving this Ansible role have been sponsored by my employer **Proact Deutschland GmbH**.
+# @end
 # @meta dependencies:value: >
-# [docker](https://github.com/rolehippie/docker)
+# [rolehippie.docker](https://github.com/rolehippie/docker)
 # @end
 galaxy_info:
   author: Thomas Boerger
-  description: Ansible role to configure traefik
+  description: Ansible role to install and configure Traefik reverse proxy
   license: Apache-2.0
-  min_ansible_version: 2.8
+  min_ansible_version: 2.10
   platforms:
     - name: Ubuntu
       versions:
-        - xenial
         - bionic
+        - focal
   galaxy_tags:
     - traefik
 

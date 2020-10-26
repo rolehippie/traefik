@@ -8,7 +8,7 @@ platform:
 
 steps:
 - name: later
-  image: xoxys/ansible-later:latest
+  image: toolhippie/ansible-later:latest
   pull: always
   commands:
   - ansible-later
@@ -36,11 +36,22 @@ workspace:
 
 steps:
 - name: molecule
-  image: xoxys/molecule:2
+  image: toolhippie/molecule:latest
   pull: always
   environment:
-    HCLOUD_TOKEN:
-      from_secret: hcloud_token
+    OS_INTERFACE: public
+    OS_IDENTITY_API_VERSION: 3
+    OS_REGION_NAME: RegionOne
+    OS_USER_DOMAIN_NAME: Default
+
+    OS_AUTH_URL:
+      from_secret: openstack_auth_url
+    OS_PROJECT_ID:
+      from_secret: openstack_project_id
+    OS_USERNAME:
+      from_secret: openstack_username
+    OS_PASSWORD:
+      from_secret: openstack_password
   commands:
   - molecule test -s default
 
@@ -55,11 +66,15 @@ depends_on:
 
 ---
 kind: pipeline
-name: docs
+name: readme
 
 platform:
   os: linux
   arch: amd64
+
+workspace:
+  base: /drone/src
+  path: ${DRONE_REPO_NAME}
 
 clone:
   disable: true
@@ -73,7 +88,7 @@ steps:
     - clone
     remote: https://github.com/${DRONE_REPO}
     branch: ${DRONE_SOURCE_BRANCH}
-    path: /drone/src
+    path: /drone/src/${DRONE_REPO_NAME}
     netrc_machine: github.com
     netrc_username:
       from_secret: github_username
@@ -81,13 +96,14 @@ steps:
       from_secret: github_token
 
 - name: generate
-  image: xoxys/ansible-doctor:latest
+  image: toolhippie/ansible-doctor:latest
   pull: always
   environment:
     ANSIBLE_DOCTOR_LOG_LEVEL: INFO
     ANSIBLE_DOCTOR_FORCE_OVERWRITE: true
     ANSIBLE_DOCTOR_EXCLUDE_FILES: molecule/
-    ANSIBLE_DOCTOR_CUSTOM_HEADER: doctor/HEADER.md
+  commands:
+    - ansible-doctor
 
 - name: diff
   image: toolhippie/git:latest
@@ -104,7 +120,7 @@ steps:
     - push
     remote: https://github.com/${DRONE_REPO}
     branch: master
-    path: /drone/src
+    path: /drone/src/${DRONE_REPO_NAME}
     netrc_machine: github.com
     netrc_username:
       from_secret: github_username
@@ -135,16 +151,11 @@ platform:
 
 steps:
 - name: notify
-  image: plugins/matrix
+  image: plugins/gitter:latest
   pull: always
   settings:
-    homeserver: https://matrix.org
-    password:
-      from_secret: matrix_password
-    roomid:
-      from_secret: matrix_roomid
-    username:
-      from_secret: matrix_username
+    webhook:
+      from_secret: gitter_webhook
 
 trigger:
   ref:
@@ -156,6 +167,6 @@ trigger:
 depends_on:
   - linting
   - testing
-  - docs
+  - readme
 
 ...

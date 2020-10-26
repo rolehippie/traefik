@@ -1,4 +1,4 @@
-# Standards: 0.1
+# Standards: 1.2
 ---
 - name: Create required dirs
   with_items:

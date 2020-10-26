@@ -1,7 +1,5 @@
 # ---> Ansible
 *.retry
-filter/plugins/
-library
 
 # ---> Python
 __pycache__/

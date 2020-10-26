@@ -1,11 +1,15 @@
+# Standards: 1.2
 ---
 - name: Prepare
   hosts: all
-  gather_facts: false
+  gather_facts: False
   tasks:
-    - name: Wait for apt lock
+    - name: Wait for aptlock
       shell: while fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do echo 'Waiting for apt list lock.' && sleep 10; done
       changed_when: False
+
     - name: Update package cache
       apt:
         update_cache: True
+
+...
