@@ -143,6 +143,36 @@ depends_on:
 
 ---
 kind: pipeline
+name: galaxy
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: galaxy
+  image: toolhippie/ansible:latest
+  pull: always
+  environment:
+    galaxy_token:
+      from_secret: galaxy_token
+  commands:
+    - ansible-galaxy role import --token $GALAXY_TOKEN ${DRONE_REPO_OWNER} ${DRONE_REPO_NAME}
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/**
+  status:
+  - success
+
+depends_on:
+  - linting
+  - testing
+  - readme
+
+---
+kind: pipeline
 name: notify
 
 platform:
