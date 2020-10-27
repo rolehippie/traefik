@@ -154,10 +154,10 @@ steps:
   image: toolhippie/ansible:latest
   pull: always
   environment:
-    galaxy_token:
+    GALAXY_TOKEN:
       from_secret: galaxy_token
   commands:
-    - ansible-galaxy role import --token $GALAXY_TOKEN ${DRONE_REPO_OWNER} ${DRONE_REPO_NAME}
+    - ansible-galaxy role import --token $${GALAXY_TOKEN} ${DRONE_REPO_OWNER} ${DRONE_REPO_NAME}
 
 trigger:
   ref:
