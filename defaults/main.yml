@@ -6,6 +6,12 @@ traefik_image: library/traefik:2.0
 # @var traefik_force_restart:description: Force a restart of the service
 traefik_force_restart: False
 
+# @var traefik_proxy_metrics:description: Enable builtin rules for metrics
+traefik_proxy_metrics: True
+
+# @var traefik_proxy_dashboard:description: Enable builtin rules for dashboard
+traefik_proxy_dashboard: True
+
 # @var traefik_dashboard_host_rule:description: Host rule for the dashboard
 traefik_dashboard_host_rule: '{{ ansible_fqdn }}'
 

@@ -54,6 +54,8 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [traefik_prometheus_entrypoint_labels](#traefik_prometheus_entrypoint_labels)
   * [traefik_prometheus_service_labels](#traefik_prometheus_service_labels)
   * [traefik_provider_throttle_duration](#traefik_provider_throttle_duration)
+  * [traefik_proxy_dashboard](#traefik_proxy_dashboard)
+  * [traefik_proxy_metrics](#traefik_proxy_metrics)
   * [traefik_root_certificates](#traefik_root_certificates)
   * [traefik_send_anonymous_usage](#traefik_send_anonymous_usage)
   * [traefik_standard_entrypoints](#traefik_standard_entrypoints)
@@ -531,6 +533,26 @@ Provider throttle duration
 
 ```YAML
 traefik_provider_throttle_duration: 0
+```
+
+### traefik_proxy_dashboard
+
+Enable builtin rules for dashboard
+
+#### Default value
+
+```YAML
+traefik_proxy_dashboard: true
+```
+
+### traefik_proxy_metrics
+
+Enable builtin rules for metrics
+
+#### Default value
+
+```YAML
+traefik_proxy_metrics: true
 ```
 
 ### traefik_root_certificates
