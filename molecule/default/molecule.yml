@@ -15,10 +15,10 @@ driver:
 platforms:
   - name: ubuntu-20.04-traefik
     flavor: pac1.g.medium
-    image: ubuntu-20.04
+    image: ubuntu-20.04-amd64
   - name: ubuntu-18.04-traefik
     flavor: pac1.g.medium
-    image: ubuntu-18.04
+    image: ubuntu-18.04-amd64
 
 provisioner:
   name: ansible
