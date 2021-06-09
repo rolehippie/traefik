@@ -3,7 +3,7 @@ tls:
     default:
       minVersion: {{ traefik_tls_min_version }}
       cipherSuites:
-        {{ traefik_tls_cipher_suites | to_nice_yaml | trim | indent(width=8, indentfirst=False) }}
+        {{ traefik_tls_cipher_suites | to_nice_yaml | trim | indent(width=8, first=False) }}
 {% if traefik_tls_default_certificate | default(False) %}
 
   stores:
@@ -26,7 +26,7 @@ http:
 {% for item in traefik_standard_middlewares + traefik_additional_middlewares %}
     {{ item.name }}:
       {{ item.kind }}:
-        {{ item.attrs | to_nice_yaml | trim | indent(width=8, indentfirst=False) }}
+        {{ item.attrs | to_nice_yaml | trim | indent(width=8, first=False) }}
 {% endfor %}
 {% if traefik_http_services | default(False) %}
   services:
@@ -35,23 +35,23 @@ http:
 {% if item.weighted | default(False) %}
       weighted:
         services:
-          {{ item.weighted | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+          {{ item.weighted | to_nice_yaml | trim | indent(width=10, first=False) }}
 {% endif %}
 {% if item.mirroring | default(False) %}
       mirroring:
         service: {{ item.mirroring.service }}
         mirrors:
-          {{ item.mirroring.mirrors | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+          {{ item.mirroring.mirrors | to_nice_yaml | trim | indent(width=10, first=False) }}
 {% endif %}
 {% if item.balancer | default(False) %}
       loadBalancer:
         passHostHeader: {{ item.balancer.pass_host_header | default(True) }}
 {% if item.balancer.healthcheck | default(False) %}
         healthCheck:
-          {{ item.balancer.healthcheck | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+          {{ item.balancer.healthcheck | to_nice_yaml | trim | indent(width=10, first=False) }}
 {% endif %}
         servers:
-          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, first=False) }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -72,7 +72,7 @@ http:
 {% endif %}
 {% if item.tls.domains | default(False) %}
         domains:
-          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, first=False) }}
 {% endif %}
 {% endif %}
 {% endfor %}
@@ -86,13 +86,13 @@ tcp:
 {% if item.weighted | default(False) %}
       weighted:
         services:
-          {{ item.weighted | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+          {{ item.weighted | to_nice_yaml | trim | indent(width=10, first=False) }}
 {% endif %}
 {% if item.balancer | default(False) %}
       loadBalancer:
         terminationDelay: {{ item.balancer.termination_delay | default(100) }}
         servers:
-          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, first=False) }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -111,7 +111,7 @@ tcp:
 {% endif %}
 {% if item.tls.domains | default(False) %}
         domains:
-          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, indentfirst=False) }}
+          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, first=False) }}
 {% endif %}
 {% endif %}
 {% endfor %}
