@@ -47,6 +47,9 @@ labels:
   - name: hacktoberfest-accepted
     color: cccccc
     description: Accepted as a Hacktoberfest submission
+  - name: renovate
+    color: e99695
+    description: Automated action from Renovate
 
 branches:
   - name: master
