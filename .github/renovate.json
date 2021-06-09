@@ -1,0 +1,60 @@
+{
+    "extends": [
+        "config:base",
+        ":semanticCommits",
+        ":semanticCommitType(deps)",
+        ":automergeMinor",
+        ":automergeDigest"
+    ],
+    "regexManagers": [{
+        "fileMatch": [
+            "defaults/main.yml"
+        ],
+        "matchStrings": [
+            "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.*?_version: \\${.*:-(?<currentValue>.*)}\\s"
+        ]
+    }],
+    "packageRules": [{
+            "description": "Semantic commits for major updates",
+            "groupName": "major updates",
+            "matchDatasources": [
+                "github-releases",
+                "github-tags"
+            ],
+            "matchUpdateTypes": [
+                "major"
+            ],
+            "semanticCommitScope": "major",
+            "automerge": true
+        },
+        {
+            "description": "Semantic commits for minor updates",
+            "groupName": "minor updates",
+            "matchDatasources": [
+                "github-releases",
+                "github-tags"
+            ],
+            "matchUpdateTypes": [
+                "minor"
+            ],
+            "semanticCommitScope": "minor",
+            "automerge": true
+        },
+        {
+            "description": "Semantic commits for patch updates",
+            "groupName": "patch updates",
+            "matchDatasources": [
+                "github-releases",
+                "github-tags"
+            ],
+            "matchUpdateTypes": [
+                "patch"
+            ],
+            "semanticCommitScope": "patch",
+            "automerge": true
+        }
+    ],
+    "labels": [
+        "renovate"
+    ]
+}
