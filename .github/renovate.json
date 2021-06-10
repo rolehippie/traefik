@@ -10,7 +10,7 @@
             "defaults/main.yml"
         ],
         "matchStrings": [
-            "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.*?_version: \\${.*:-(?<currentValue>.*)}\\s"
+            "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.*?_version: (?<currentValue>.*)\\s"
         ]
     }],
     "packageRules": [{
