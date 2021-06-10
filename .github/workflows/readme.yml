@@ -18,7 +18,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: toolhippie/ansible-doctor:latest
-          options: -v ${{ github.workspace }}:/work -w /work
+          options: -v ${{ github.workspace }}:/tmp/${{ github.repository }} -w /tmp/${{ github.repository }}
           run: ansible-doctor -v -f
 
       - name: Commit changes
