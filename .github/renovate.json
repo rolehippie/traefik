@@ -3,8 +3,7 @@
         "config:base",
         ":semanticCommits",
         ":semanticCommitType(deps)",
-        ":automergeMinor",
-        ":automergeDigest"
+        ":automergePatch"
     ],
     "regexManagers": [{
         "fileMatch": [
@@ -19,33 +18,36 @@
             "groupName": "major updates",
             "matchDatasources": [
                 "github-releases",
-                "github-tags"
+                "github-tags",
+                "galaxy-collection"
             ],
             "matchUpdateTypes": [
                 "major"
             ],
             "semanticCommitScope": "major",
-            "automerge": true
+            "automerge": false
         },
         {
             "description": "Semantic commits for minor updates",
             "groupName": "minor updates",
             "matchDatasources": [
                 "github-releases",
-                "github-tags"
+                "github-tags",
+                "galaxy-collection"
             ],
             "matchUpdateTypes": [
                 "minor"
             ],
             "semanticCommitScope": "minor",
-            "automerge": true
+            "automerge": false
         },
         {
             "description": "Semantic commits for patch updates",
             "groupName": "patch updates",
             "matchDatasources": [
                 "github-releases",
-                "github-tags"
+                "github-tags",
+                "galaxy-collection"
             ],
             "matchUpdateTypes": [
                 "patch"
