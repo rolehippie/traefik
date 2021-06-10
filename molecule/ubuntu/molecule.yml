@@ -1,0 +1,52 @@
+# Standards: 1.2
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/requirements.yml
+  env:
+    ANSIBLE_GALAXY_DISPLAY_PROGRESS: "false"
+
+driver:
+  name: docker
+
+platforms:
+  - name: traefik-ubuntu-20
+    image: mpaivabarbosa/molecule-systemd-ubuntu:20.04
+    hostname: ubuntu
+    privileged: True
+    pre_build_image: True
+    override_command: False
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    environment:
+      container: docker
+  - name: traefik-ubuntu-18
+    image: mpaivabarbosa/molecule-systemd-ubuntu:18.04
+    hostname: ubuntu
+    privileged: True
+    pre_build_image: True
+    override_command: False
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    environment:
+      container: docker
+
+provisioner:
+  name: ansible
+  connection_options:
+    ansible_become: True
+  env:
+    ANSIBLE_FILTER_PLUGINS: "${ANSIBLE_FILTER_PLUGINS:-./plugins/filter}"
+    ANSIBLE_LIBRARY: "${ANSIBLE_LIBRARY:-./library}"
+
+verifier:
+  name: testinfra
+
+...

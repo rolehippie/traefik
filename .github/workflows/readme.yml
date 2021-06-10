@@ -1,0 +1,34 @@
+---
+name: readme
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Generate readme
+        uses: addnab/docker-run-action@v3
+        with:
+          image: toolhippie/ansible-doctor:latest
+          options: -v ${{ github.workspace }}:/work -w /work
+          run: ansible-doctor -v -f
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: GitHub Actions
+          author_email: github@webhippie.de
+          add: README.md
+          message: automated readme update [skip ci]
+          push: true
+          signoff: true
+
+...

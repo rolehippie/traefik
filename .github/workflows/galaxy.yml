@@ -1,0 +1,24 @@
+---
+name: galaxy
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Galaxy upload
+        uses: robertdebock/galaxy-action@1
+        with:
+          galaxy_api_key: ${{ secrets.GALAXY_TOKEN }}
+
+...
