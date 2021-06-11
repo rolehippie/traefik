@@ -1,5 +1,5 @@
 ---
-name: testing
+name: general
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
       - master
 
 jobs:
-  lint:
+  linting:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
         with:
           config: .later.yml
 
-  test:
+  testing:
     runs-on: ubuntu-latest
 
     strategy:
