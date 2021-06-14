@@ -14,6 +14,15 @@
         ]
     }],
     "packageRules": [{
+            "description": "Strip v prefix from versions",
+            "groupName": "version prefix",
+            "matchDatasources": [
+                "github-releases",
+                "github-tags"
+            ],
+            "extractVersion": "^v(?<version>.*)$"
+        },
+        {
             "description": "Semantic commits for major updates",
             "groupName": "major updates",
             "matchDatasources": [
