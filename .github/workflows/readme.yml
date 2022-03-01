@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@3
 
       - name: Generate readme
         uses: addnab/docker-run-action@v3
