@@ -13,4 +13,9 @@
       apt:
         update_cache: True
 
+    - name: Install gpg dependency
+      apt:
+        name: python3-gpg
+        state: present
+
 ...
