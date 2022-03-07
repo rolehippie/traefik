@@ -1,7 +1,7 @@
 ---
 name: general
 
-on:
+'on':
   push:
     branches:
       - master
@@ -15,12 +15,10 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@3
+        uses: actions/checkout@v3
 
       - name: Role linting
-        uses: patrickjahns/ansible-later-action@master
-        with:
-          config: .later.yml
+        uses: actionhippie/ansible-later@v1
 
   testing:
     runs-on: ubuntu-latest
@@ -34,7 +32,7 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@3
+        uses: actions/checkout@v3
         with:
           path: ${{ github.repository }}
 

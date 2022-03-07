@@ -12,17 +12,16 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@3
+        uses: actions/checkout@v3
 
       - name: Generate readme
-        uses: addnab/docker-run-action@v3
+        uses: actionhippie/ansible-doctor@v1
         with:
-          image: toolhippie/ansible-doctor:latest
-          options: -v ${{ github.workspace }}:/tmp/${{ github.repository }} -w /tmp/${{ github.repository }}
-          run: ansible-doctor -v -f
+          force: true
+          verbose: true
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@8
+        uses: EndBug/add-and-commit@v8
         with:
           author_name: GitHub Actions
           author_email: github@webhippie.de
