@@ -1,87 +1,88 @@
 # traefik
 
-[![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/traefik) [![Testing Build](https://github.com/rolehippie/traefik/workflows/testing/badge.svg)](https://github.com/rolehippie/traefik/actions?query=workflow%3Atesting) [![Readme Build](https://github.com/rolehippie/traefik/workflows/readme/badge.svg)](https://github.com/rolehippie/traefik/actions?query=workflow%3Areadme) [![Galaxy Build](https://github.com/rolehippie/traefik/workflows/galaxy/badge.svg)](https://github.com/rolehippie/traefik/actions?query=workflow%3Agalaxy) [![License: Apache-2.0](https://img.shields.io/github/license/rolehippie/traefik)](https://github.com/rolehippie/traefik/blob/master/LICENSE) 
+[![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/traefik) [![Testing Build](https://github.com/rolehippie/traefik/workflows/testing/badge.svg)](https://github.com/rolehippie/traefik/actions?query=workflow%3Atesting) [![Readme Build](https://github.com/rolehippie/traefik/workflows/readme/badge.svg)](https://github.com/rolehippie/traefik/actions?query=workflow%3Areadme) [![Galaxy Build](https://github.com/rolehippie/traefik/workflows/galaxy/badge.svg)](https://github.com/rolehippie/traefik/actions?query=workflow%3Agalaxy) [![License: Apache-2.0](https://img.shields.io/github/license/rolehippie/traefik)](https://github.com/rolehippie/traefik/blob/master/LICENSE)
 
-Ansible role to install and configure Traefik reverse proxy. 
+Ansible role to install and configure Traefik reverse proxy.
 
-## Sponsor 
+## Sponsor
 
-[![Proact Deutschland GmbH](https://proact.eu/wp-content/uploads/2020/03/proact-logo.png)](https://proact.eu) 
+[![Proact Deutschland GmbH](https://proact.eu/wp-content/uploads/2020/03/proact-logo.png)](https://proact.eu)
 
 Building and improving this Ansible role have been sponsored by my employer **Proact Deutschland GmbH**.
 
 ## Table of content
 
-* [Default Variables](#default-variables)
-  * [traefik_accesslog_buffer](#traefik_accesslog_buffer)
-  * [traefik_accesslog_format](#traefik_accesslog_format)
-  * [traefik_additional_entrypoints](#traefik_additional_entrypoints)
-  * [traefik_additional_middlewares](#traefik_additional_middlewares)
-  * [traefik_additional_ports](#traefik_additional_ports)
-  * [traefik_api_dashboard](#traefik_api_dashboard)
-  * [traefik_api_debug](#traefik_api_debug)
-  * [traefik_api_enabled](#traefik_api_enabled)
-  * [traefik_api_insecure](#traefik_api_insecure)
-  * [traefik_cert_resolvers](#traefik_cert_resolvers)
-  * [traefik_check_new_version](#traefik_check_new_version)
-  * [traefik_dashboard_cert_resolver](#traefik_dashboard_cert_resolver)
-  * [traefik_dashboard_host_rule](#traefik_dashboard_host_rule)
-  * [traefik_dashboard_http_entrypoint](#traefik_dashboard_http_entrypoint)
-  * [traefik_dashboard_https_entrypoint](#traefik_dashboard_https_entrypoint)
-  * [traefik_dashboard_middlewares](#traefik_dashboard_middlewares)
-  * [traefik_dashboard_users](#traefik_dashboard_users)
-  * [traefik_docker_bind_port_ip](#traefik_docker_bind_port_ip)
-  * [traefik_docker_default_rule](#traefik_docker_default_rule)
-  * [traefik_docker_exposed_by_default](#traefik_docker_exposed_by_default)
-  * [traefik_docker_network_name](#traefik_docker_network_name)
-  * [traefik_environment_variables](#traefik_environment_variables)
-  * [traefik_force_restart](#traefik_force_restart)
-  * [traefik_forwarding_dial_timeout](#traefik_forwarding_dial_timeout)
-  * [traefik_forwarding_idle_timeout](#traefik_forwarding_idle_timeout)
-  * [traefik_forwarding_response_timeout](#traefik_forwarding_response_timeout)
-  * [traefik_hostresolver_cname_flattening](#traefik_hostresolver_cname_flattening)
-  * [traefik_hostresolver_resolv_config](#traefik_hostresolver_resolv_config)
-  * [traefik_hostresolver_resolv_depth](#traefik_hostresolver_resolv_depth)
-  * [traefik_image](#traefik_image)
-  * [traefik_insecure_skip_verify](#traefik_insecure_skip_verify)
-  * [traefik_log_format](#traefik_log_format)
-  * [traefik_log_level](#traefik_log_level)
-  * [traefik_max_idle_conns](#traefik_max_idle_conns)
-  * [traefik_ping_entrypoint](#traefik_ping_entrypoint)
-  * [traefik_prometheus_buckets](#traefik_prometheus_buckets)
-  * [traefik_prometheus_enabled](#traefik_prometheus_enabled)
-  * [traefik_prometheus_entrypoint](#traefik_prometheus_entrypoint)
-  * [traefik_prometheus_entrypoint_labels](#traefik_prometheus_entrypoint_labels)
-  * [traefik_prometheus_service_labels](#traefik_prometheus_service_labels)
-  * [traefik_provider_throttle_duration](#traefik_provider_throttle_duration)
-  * [traefik_proxy_dashboard](#traefik_proxy_dashboard)
-  * [traefik_proxy_metrics](#traefik_proxy_metrics)
-  * [traefik_root_certificates](#traefik_root_certificates)
-  * [traefik_send_anonymous_usage](#traefik_send_anonymous_usage)
-  * [traefik_standard_entrypoints](#traefik_standard_entrypoints)
-  * [traefik_standard_middlewares](#traefik_standard_middlewares)
-  * [traefik_standard_ports](#traefik_standard_ports)
-  * [traefik_tls_additional_certificates](#traefik_tls_additional_certificates)
-  * [traefik_tls_cipher_suites](#traefik_tls_cipher_suites)
-  * [traefik_tls_default_certificate](#traefik_tls_default_certificate)
-  * [traefik_tls_min_version](#traefik_tls_min_version)
-  * [traefik_tls_standard_certificates](#traefik_tls_standard_certificates)
-  * [traefik_tracing_128bit_spans](#traefik_tracing_128bit_spans)
-  * [traefik_tracing_collector_endpoint](#traefik_tracing_collector_endpoint)
-  * [traefik_tracing_collector_password](#traefik_tracing_collector_password)
-  * [traefik_tracing_collector_user](#traefik_tracing_collector_user)
-  * [traefik_tracing_enabled](#traefik_tracing_enabled)
-  * [traefik_tracing_header_name](#traefik_tracing_header_name)
-  * [traefik_tracing_local_agent](#traefik_tracing_local_agent)
-  * [traefik_tracing_name_limit](#traefik_tracing_name_limit)
-  * [traefik_tracing_propagation_format](#traefik_tracing_propagation_format)
-  * [traefik_tracing_sampling_param](#traefik_tracing_sampling_param)
-  * [traefik_tracing_sampling_server](#traefik_tracing_sampling_server)
-  * [traefik_tracing_sampling_type](#traefik_tracing_sampling_type)
-  * [traefik_tracing_service_name](#traefik_tracing_service_name)
-* [Dependencies](#dependencies)
-* [License](#license)
-* [Author](#author)
+- [Default Variables](#default-variables)
+  - [traefik_accesslog_buffer](#traefik_accesslog_buffer)
+  - [traefik_accesslog_format](#traefik_accesslog_format)
+  - [traefik_additional_entrypoints](#traefik_additional_entrypoints)
+  - [traefik_additional_middlewares](#traefik_additional_middlewares)
+  - [traefik_additional_ports](#traefik_additional_ports)
+  - [traefik_api_dashboard](#traefik_api_dashboard)
+  - [traefik_api_debug](#traefik_api_debug)
+  - [traefik_api_enabled](#traefik_api_enabled)
+  - [traefik_api_insecure](#traefik_api_insecure)
+  - [traefik_cert_resolvers](#traefik_cert_resolvers)
+  - [traefik_check_new_version](#traefik_check_new_version)
+  - [traefik_dashboard_cert_resolver](#traefik_dashboard_cert_resolver)
+  - [traefik_dashboard_host_rule](#traefik_dashboard_host_rule)
+  - [traefik_dashboard_http_entrypoint](#traefik_dashboard_http_entrypoint)
+  - [traefik_dashboard_https_entrypoint](#traefik_dashboard_https_entrypoint)
+  - [traefik_dashboard_middlewares](#traefik_dashboard_middlewares)
+  - [traefik_dashboard_users](#traefik_dashboard_users)
+  - [traefik_docker_bind_port_ip](#traefik_docker_bind_port_ip)
+  - [traefik_docker_default_rule](#traefik_docker_default_rule)
+  - [traefik_docker_exposed_by_default](#traefik_docker_exposed_by_default)
+  - [traefik_docker_network_name](#traefik_docker_network_name)
+  - [traefik_environment_variables](#traefik_environment_variables)
+  - [traefik_force_restart](#traefik_force_restart)
+  - [traefik_forwarding_dial_timeout](#traefik_forwarding_dial_timeout)
+  - [traefik_forwarding_idle_timeout](#traefik_forwarding_idle_timeout)
+  - [traefik_forwarding_response_timeout](#traefik_forwarding_response_timeout)
+  - [traefik_hostresolver_cname_flattening](#traefik_hostresolver_cname_flattening)
+  - [traefik_hostresolver_resolv_config](#traefik_hostresolver_resolv_config)
+  - [traefik_hostresolver_resolv_depth](#traefik_hostresolver_resolv_depth)
+  - [traefik_image](#traefik_image)
+  - [traefik_insecure_skip_verify](#traefik_insecure_skip_verify)
+  - [traefik_log_format](#traefik_log_format)
+  - [traefik_log_level](#traefik_log_level)
+  - [traefik_max_idle_conns](#traefik_max_idle_conns)
+  - [traefik_ping_entrypoint](#traefik_ping_entrypoint)
+  - [traefik_prometheus_buckets](#traefik_prometheus_buckets)
+  - [traefik_prometheus_enabled](#traefik_prometheus_enabled)
+  - [traefik_prometheus_entrypoint](#traefik_prometheus_entrypoint)
+  - [traefik_prometheus_entrypoint_labels](#traefik_prometheus_entrypoint_labels)
+  - [traefik_prometheus_service_labels](#traefik_prometheus_service_labels)
+  - [traefik_provider_throttle_duration](#traefik_provider_throttle_duration)
+  - [traefik_proxy_dashboard](#traefik_proxy_dashboard)
+  - [traefik_proxy_metrics](#traefik_proxy_metrics)
+  - [traefik_root_certificates](#traefik_root_certificates)
+  - [traefik_send_anonymous_usage](#traefik_send_anonymous_usage)
+  - [traefik_standard_entrypoints](#traefik_standard_entrypoints)
+  - [traefik_standard_middlewares](#traefik_standard_middlewares)
+  - [traefik_standard_ports](#traefik_standard_ports)
+  - [traefik_tls_additional_certificates](#traefik_tls_additional_certificates)
+  - [traefik_tls_cipher_suites](#traefik_tls_cipher_suites)
+  - [traefik_tls_default_certificate](#traefik_tls_default_certificate)
+  - [traefik_tls_min_version](#traefik_tls_min_version)
+  - [traefik_tls_standard_certificates](#traefik_tls_standard_certificates)
+  - [traefik_tracing_128bit_spans](#traefik_tracing_128bit_spans)
+  - [traefik_tracing_collector_endpoint](#traefik_tracing_collector_endpoint)
+  - [traefik_tracing_collector_password](#traefik_tracing_collector_password)
+  - [traefik_tracing_collector_user](#traefik_tracing_collector_user)
+  - [traefik_tracing_enabled](#traefik_tracing_enabled)
+  - [traefik_tracing_header_name](#traefik_tracing_header_name)
+  - [traefik_tracing_local_agent](#traefik_tracing_local_agent)
+  - [traefik_tracing_name_limit](#traefik_tracing_name_limit)
+  - [traefik_tracing_propagation_format](#traefik_tracing_propagation_format)
+  - [traefik_tracing_sampling_param](#traefik_tracing_sampling_param)
+  - [traefik_tracing_sampling_server](#traefik_tracing_sampling_server)
+  - [traefik_tracing_sampling_type](#traefik_tracing_sampling_type)
+  - [traefik_tracing_service_name](#traefik_tracing_service_name)
+- [Discovered Tags](#discovered-tags)
+- [Dependencies](#dependencies)
+- [License](#license)
+- [Author](#author)
 
 ---
 
@@ -292,7 +293,7 @@ Default rule for docker provider
 #### Default value
 
 ```YAML
-traefik_docker_default_rule: Host(`{{ normalize .Name }}`)
+traefik_docker_default_rule: !unsafe 'Host(`{{ normalize .Name }}`)'
 ```
 
 ### traefik_docker_exposed_by_default
@@ -868,9 +869,14 @@ Tracing service name to send
 traefik_tracing_service_name: traefik
 ```
 
+## Discovered Tags
+
+**_traefik_**
+
+
 ## Dependencies
 
-* [rolehippie.docker](https://github.com/rolehippie/docker)
+- [rolehippie.docker](https://github.com/rolehippie/docker)
 
 ## License
 
