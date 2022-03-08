@@ -1,13 +1,13 @@
 ---
 name: readme
 
-on:
+'on':
   push:
     branches:
       - master
 
 jobs:
-  changes:
+  readme:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,6 +28,6 @@ jobs:
           add: README.md
           message: automated readme update [skip ci]
           push: true
-          signoff: true
+          commit: --signoff
 
 ...
