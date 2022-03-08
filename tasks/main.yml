@@ -6,6 +6,9 @@
   file:
     path: "{{ item }}"
     state: directory
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
   tags:
     - traefik
 
@@ -15,6 +18,9 @@
   template:
     src: config.j2
     dest: /etc/traefik/traefik.yml
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
   tags:
     - traefik
 
@@ -24,6 +30,9 @@
   template:
     src: static.j2
     dest: /etc/traefik/static.yml
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
   tags:
     - traefik
 
@@ -33,6 +42,9 @@
   template:
     src: default.j2
     dest: /etc/default/traefik
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
   tags:
     - traefik
 
@@ -42,6 +54,9 @@
   template:
     src: service.j2
     dest: /etc/systemd/system/traefik.service
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
   tags:
     - traefik
 
