@@ -6,9 +6,7 @@ Ansible role to install and configure Traefik reverse proxy.
 
 ## Sponsor
 
-[![Proact Deutschland GmbH](https://proact.eu/wp-content/uploads/2020/03/proact-logo.png)](https://proact.eu)
-
-Building and improving this Ansible role have been sponsored by my employer **Proact Deutschland GmbH**.
+Building and improving this Ansible role have been sponsored by my current and previous employers like **[Cloudpunks GmbH](https://cloudpunks.de)** and **[Proact Deutschland GmbH](https://www.proact.eu)**.
 
 ## Table of content
 
