@@ -703,6 +703,12 @@ traefik_tls_default_certificate:
 traefik_tls_default_certificate:
   crt: /etc/ssl/certs/wildcard.example.com.crt
   key: /etc/ssl/private/wildcard.example.com.key
+  generated:
+    resolver: default
+    domain:
+      main: example.com
+      sans:
+        - dummy.example.com
 ```
 
 ### traefik_tls_min_version
