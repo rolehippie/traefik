@@ -8,9 +8,15 @@ tls:
 
   stores:
     default:
+{% if traefik_tls_default_certificate.crt | default(False) %}
       defaultCertificate:
         certFile: {{ traefik_tls_default_certificate.crt }}
         keyFile: {{ traefik_tls_default_certificate.key }}
+{% endif %}
+{% if traefik_tls_default_certificate.generated | default(False) %}
+      defaultGeneratedCert:
+        {{ traefik_tls_default_certificate.generated | from_yaml | to_nice_yaml(indent=2) | indent(width=8, first=False) | trim }}
+{% endif %}
 {% endif %}
 {% if traefik_tls_standard_certificates | default(False) or traefik_tls_additional_certificates | default(False) %}
 
