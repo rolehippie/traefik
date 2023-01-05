@@ -11,30 +11,49 @@ driver:
   name: docker
 
 platforms:
-  - name: traefik-ubuntu-20
-    image: mpaivabarbosa/molecule-systemd-ubuntu:20.04
+  - name: traefik-ubuntu-22
+    image: geerlingguy/docker-ubuntu2204-ansible:latest
     hostname: ubuntu
     privileged: True
     pre_build_image: True
     override_command: False
+    cgroupns_mode: host
     tmpfs:
-      - /run
       - /tmp
+      - /run
+      - /run/lock
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    environment:
+      container: docker
+  - name: traefik-ubuntu-20
+    image: geerlingguy/docker-ubuntu2004-ansible:latest
+    hostname: ubuntu
+    privileged: True
+    pre_build_image: True
+    override_command: False
+    cgroupns_mode: host
+    tmpfs:
+      - /tmp
+      - /run
+      - /run/lock
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup
     environment:
       container: docker
   - name: traefik-ubuntu-18
-    image: mpaivabarbosa/molecule-systemd-ubuntu:18.04
+    image: geerlingguy/docker-ubuntu1804-ansible:latest
     hostname: ubuntu
     privileged: True
     pre_build_image: True
     override_command: False
+    cgroupns_mode: host
     tmpfs:
-      - /run
       - /tmp
+      - /run
+      - /run/lock
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup
     environment:
       container: docker
 

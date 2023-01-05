@@ -1,0 +1,28 @@
+---
+name: release
+
+"on":
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_ACCESS_TOKEN }}
+
+      - name: Semantic release
+        uses: cycjimmy/semantic-release-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
+        with:
+          extra_plugins: |
+            conventional-changelog-conventionalcommits
+
+...

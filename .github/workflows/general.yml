@@ -1,7 +1,7 @@
 ---
 name: general
 
-'on':
+"on":
   push:
     branches:
       - master
@@ -28,18 +28,18 @@ jobs:
 
       matrix:
         scenario:
-          - ubuntu
+          - default
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
-        with:
-          path: ${{ github.repository }}
 
       - name: Molecule tests
         uses: gofrolist/molecule-action@v2
         with:
           molecule_command: test
           molecule_args: --scenario-name ${{ matrix.scenario }}
+        env:
+          ANSIBLE_FORCE_COLOR: "1"
 
 ...

@@ -1,0 +1,110 @@
+{
+    "branches": [
+        "master"
+    ],
+    "plugins": [
+        [
+            "@semantic-release/commit-analyzer",
+            {
+                "preset": "conventionalcommits",
+                "releaseRules": [
+                    {
+                        "type": "major",
+                        "release": "major"
+                    },
+                    {
+                        "type": "deps",
+                        "scope": "major",
+                        "release": "major"
+                    },
+                    {
+                        "type": "minor",
+                        "release": "minor"
+                    },
+                    {
+                        "type": "deps",
+                        "scope": "minor",
+                        "release": "minor"
+                    },
+                    {
+                        "type": "patch",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "deps",
+                        "scope": "patch",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "refactor",
+                        "release": "minor"
+                    },
+                    {
+                        "scope": "docs",
+                        "release": false
+                    }
+                ]
+            }
+        ],
+        [
+            "@semantic-release/release-notes-generator",
+            {
+                "preset": "conventionalcommits",
+                "presetConfig": {
+                    "types": [
+                        {
+                            "type": "feat",
+                            "section": "Features"
+                        },
+                        {
+                            "type": "major",
+                            "section": "Features"
+                        },
+                        {
+                            "type": "minor",
+                            "section": "Features"
+                        },
+                        {
+                            "type": "fix",
+                            "section": "Bugfixes"
+                        },
+                        {
+                            "type": "patch",
+                            "section": "Bugfixes"
+                        },
+                        {
+                            "type": "chore",
+                            "hidden": true
+                        },
+                        {
+                            "type": "docs",
+                            "hidden": true
+                        },
+                        {
+                            "type": "refactor",
+                            "hidden": true
+                        }
+                    ]
+                }
+            }
+        ],
+        [
+            "@semantic-release/changelog",
+            {
+                "changelogTitle": "# Changelog"
+            }
+        ],
+        [
+            "@semantic-release/git",
+            {
+                "message": "chore: release ${nextRelease.version}"
+            }
+        ],
+        [
+            "@semantic-release/github",
+            {
+                "addReleases": true
+            }
+        ]
+    ]
+}

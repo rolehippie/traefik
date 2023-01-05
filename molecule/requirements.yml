@@ -2,8 +2,6 @@
 ---
 collections: []
 roles:
-  - src: https://github.com/rolehippie/docker
-    scm: git
-    version: master
+  - name: rolehippie.docker
 
 ...

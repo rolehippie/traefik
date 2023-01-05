@@ -1,7 +1,7 @@
 ---
 name: readme
 
-'on':
+"on":
   push:
     branches:
       - master
@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_ACCESS_TOKEN }}
 
       - name: Generate readme
         uses: actionhippie/ansible-doctor@v1
@@ -26,7 +28,7 @@ jobs:
           author_name: GitHub Actions
           author_email: github@webhippie.de
           add: README.md
-          message: automated readme update [skip ci]
+          message: "docs: automated readme update [skip ci]"
           push: true
           commit: --signoff
 

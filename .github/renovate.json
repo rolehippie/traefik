@@ -3,17 +3,20 @@
         "config:base",
         ":semanticCommits",
         ":semanticCommitType(deps)",
-        ":automergePatch"
+        ":automergeMinor"
     ],
-    "regexManagers": [{
-        "fileMatch": [
-            "defaults/main.yml"
-        ],
-        "matchStrings": [
-            "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.*?_version: (?<currentValue>.*)\\s"
-        ]
-    }],
-    "packageRules": [{
+    "regexManagers": [
+        {
+            "fileMatch": [
+                "defaults/main.yml"
+            ],
+            "matchStrings": [
+                "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.*?_version: (?<currentValue>.*)\\s"
+            ]
+        }
+    ],
+    "packageRules": [
+        {
             "description": "Strip v prefix from versions",
             "groupName": "version prefix",
             "matchDatasources": [
@@ -23,45 +26,33 @@
             "extractVersion": "^v(?<version>.*)$"
         },
         {
-            "description": "Semantic commits for major updates",
-            "groupName": "major updates",
-            "matchDatasources": [
-                "github-releases",
-                "github-tags",
-                "galaxy-collection"
-            ],
+            "description": "Semantic commits for major versions",
+            "groupName": "major versions",
             "matchUpdateTypes": [
                 "major"
             ],
-            "semanticCommitScope": "major",
+            "semanticCommitType": "major",
+            "semanticCommitScope": "deps",
             "automerge": false
         },
         {
-            "description": "Semantic commits for minor updates",
-            "groupName": "minor updates",
-            "matchDatasources": [
-                "github-releases",
-                "github-tags",
-                "galaxy-collection"
-            ],
+            "description": "Semantic commits for minor versions",
+            "groupName": "minor versions",
             "matchUpdateTypes": [
                 "minor"
             ],
-            "semanticCommitScope": "minor",
-            "automerge": false
+            "semanticCommitType": "minor",
+            "semanticCommitScope": "deps",
+            "automerge": true
         },
         {
-            "description": "Semantic commits for patch updates",
-            "groupName": "patch updates",
-            "matchDatasources": [
-                "github-releases",
-                "github-tags",
-                "galaxy-collection"
-            ],
+            "description": "Semantic commits for patch versions",
+            "groupName": "patch versions",
             "matchUpdateTypes": [
                 "patch"
             ],
-            "semanticCommitScope": "patch",
+            "semanticCommitType": "patch",
+            "semanticCommitScope": "deps",
             "automerge": true
         }
     ],
