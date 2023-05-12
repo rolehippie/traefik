@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/rolehippie/traefik/compare/v1.0.0...v1.1.0) (2023-05-12)
+
+
+### Features
+
+* add more options for tcp tls ([480c422](https://github.com/rolehippie/traefik/commit/480c422dde41e2166cf623dc634be0ce665c9338))
+
 ## 1.0.0 (2023-01-05)
 
 
