@@ -111,7 +111,12 @@ tcp:
       service: {{ item.service }}
 {% if item.tls | default(False) %}
       tls:
+{% if item.tls.options | default("default") %}
         options: {{ item.tls.options | default("default") }}
+{% endif %}
+{% if item.tls.passthrough | default(False) %}
+        passthrough: true
+{% endif %}
 {% if item.tls.resolver | default(False) %}
         certResolver: {{ item.tls.resolver }}
 {% endif %}
