@@ -16,6 +16,9 @@ jobs:
         with:
           token: ${{ secrets.BOT_ACCESS_TOKEN }}
 
+      - name: Write buildtime
+        run: date >| .github/RELEASEDATE
+
       - name: Semantic release
         uses: cycjimmy/semantic-release-action@v3
         env:
@@ -23,5 +26,15 @@ jobs:
         with:
           extra_plugins: |
             conventional-changelog-conventionalcommits
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: GitHub Actions
+          author_email: github@webhippie.de
+          add: .github/RELEASEDATE
+          message: "docs: automated release update [skip ci]"
+          push: true
+          commit: --signoff
 
 ...
