@@ -8,6 +8,7 @@ name: general
   pull_request:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   linting:
