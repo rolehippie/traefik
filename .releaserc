@@ -53,11 +53,12 @@
                 "presetConfig": {
                     "types": [
                         {
-                            "type": "feat",
+                            "type": "major",
                             "section": "Features"
                         },
                         {
-                            "type": "major",
+                            "type": "deps",
+                            "scope": "major",
                             "section": "Features"
                         },
                         {
@@ -65,11 +66,25 @@
                             "section": "Features"
                         },
                         {
-                            "type": "fix",
-                            "section": "Bugfixes"
+                            "type": "deps",
+                            "scope": "minor",
+                            "section": "Features"
                         },
                         {
                             "type": "patch",
+                            "section": "Bugfixes"
+                        },
+                        {
+                            "type": "deps",
+                            "scope": "patch",
+                            "section": "Bugfixes"
+                        },
+                        {
+                            "type": "feat",
+                            "section": "Features"
+                        },
+                        {
+                            "type": "fix",
                             "section": "Bugfixes"
                         },
                         {
@@ -97,7 +112,8 @@
         [
             "@semantic-release/git",
             {
-                "message": "chore: release ${nextRelease.version}"
+                "message": "chore: release ${nextRelease.version} [skip ci]",
+                "assets": ["CHANGELOG.md"]
             }
         ],
         [
