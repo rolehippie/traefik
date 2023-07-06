@@ -1,7 +1,11 @@
 # Standards: 1.2
 ---
+# @var traefik_version:description: Version of the Docker image
+# renovate: datasource=docker depName=library/traefik
+traefik_version: 2.0
+
 # @var traefik_image:description: Docker image to use
-traefik_image: library/traefik:2.0
+traefik_image: "library/traefik:{{ traefik_version }}"
 
 # @var traefik_pull_image:description: Pull image as part of the tasks
 traefik_pull_image: True

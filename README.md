@@ -84,6 +84,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [traefik_tracing_sampling_server](#traefik_tracing_sampling_server)
   - [traefik_tracing_sampling_type](#traefik_tracing_sampling_type)
   - [traefik_tracing_service_name](#traefik_tracing_service_name)
+  - [traefik_version](#traefik_version)
 - [Discovered Tags](#discovered-tags)
 - [Dependencies](#dependencies)
 - [License](#license)
@@ -429,7 +430,7 @@ Docker image to use
 #### Default value
 
 ```YAML
-traefik_image: library/traefik:2.0
+traefik_image: library/traefik:{{ traefik_version }}
 ```
 
 ### traefik_insecure_skip_verify
@@ -893,6 +894,16 @@ Tracing service name to send
 
 ```YAML
 traefik_tracing_service_name: traefik
+```
+
+### traefik_version
+
+Version of the Docker image
+
+#### Default value
+
+```YAML
+traefik_version: 2.0
 ```
 
 ## Discovered Tags
