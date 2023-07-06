@@ -3,6 +3,9 @@
 # @var traefik_image:description: Docker image to use
 traefik_image: library/traefik:2.0
 
+# @var traefik_pull_image:description: Pull image as part of the tasks
+traefik_pull_image: True
+
 # @var traefik_force_restart:description: Force a restart of the service
 traefik_force_restart: False
 

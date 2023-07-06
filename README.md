@@ -60,6 +60,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [traefik_provider_throttle_duration](#traefik_provider_throttle_duration)
   - [traefik_proxy_dashboard](#traefik_proxy_dashboard)
   - [traefik_proxy_metrics](#traefik_proxy_metrics)
+  - [traefik_pull_image](#traefik_pull_image)
   - [traefik_root_certificates](#traefik_root_certificates)
   - [traefik_send_anonymous_usage](#traefik_send_anonymous_usage)
   - [traefik_standard_entrypoints](#traefik_standard_entrypoints)
@@ -563,6 +564,16 @@ Enable builtin rules for metrics
 
 ```YAML
 traefik_proxy_metrics: true
+```
+
+### traefik_pull_image
+
+Pull image as part of the tasks
+
+#### Default value
+
+```YAML
+traefik_pull_image: true
 ```
 
 ### traefik_root_certificates

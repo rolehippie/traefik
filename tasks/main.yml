@@ -60,6 +60,23 @@
   tags:
     - traefik
 
+- name: Pull docker image
+  when:
+    - traefik_pull_image
+  docker_image:
+    name: "{{ traefik_image }}"
+    source: pull
+  tags:
+    - traefik
+
+- name: Create docker network
+  when:
+    - traefik_network | default(False)
+  docker_network:
+    name: '{{ traefik_network }}'
+  tags:
+    - traefik
+
 - name: Start traefik service
   systemd:
     name: traefik
