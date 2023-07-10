@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0](https://github.com/rolehippie/traefik/compare/v1.1.0...v1.2.0) (2023-07-10)
+
+
+### Features
+
+* **deps:** update library/traefik docker tag to v2.10.3 ([bf14fce](https://github.com/rolehippie/traefik/commit/bf14fce246ca942f3ee2213d9ced2a5062eb9427))
+* enable renovate updates ([1051ac9](https://github.com/rolehippie/traefik/commit/1051ac90763705f04e14412ab580f444a715b955))
+* move image pull to tasks from service and create network ([41323b2](https://github.com/rolehippie/traefik/commit/41323b2f9a2dd00ac5aa247a52645b5df4e690c1))
+
 ## [1.1.0](https://github.com/rolehippie/traefik/compare/v1.0.0...v1.1.0) (2023-05-12)
 
 
