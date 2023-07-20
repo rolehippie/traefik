@@ -2,14 +2,15 @@
 name: readme
 
 "on":
+  workflow_dispatch:
   push:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
   readme:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'rolehippie'
 
     steps:
       - name: Checkout source

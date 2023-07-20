@@ -2,16 +2,17 @@
 name: galaxy
 
 "on":
+  workflow_dispatch:
   push:
     branches:
       - master
     tags:
       - v*
-  workflow_dispatch:
 
 jobs:
   galaxy:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'rolehippie'
 
     steps:
       - name: Checkout source

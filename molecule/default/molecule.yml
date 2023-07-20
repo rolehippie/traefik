@@ -3,7 +3,7 @@
 dependency:
   name: galaxy
   options:
-    role-file: molecule/requirements.yml
+    requirements-file: molecule/requirements.yml
   env:
     ANSIBLE_GALAXY_DISPLAY_PROGRESS: "false"
 
@@ -23,7 +23,7 @@ platforms:
       - /run
       - /run/lock
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     environment:
       container: docker
   - name: traefik-ubuntu-20
@@ -38,7 +38,7 @@ platforms:
       - /run
       - /run/lock
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     environment:
       container: docker
   - name: traefik-ubuntu-18
@@ -53,7 +53,7 @@ platforms:
       - /run
       - /run/lock
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     environment:
       container: docker
 

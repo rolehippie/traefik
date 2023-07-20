@@ -2,17 +2,18 @@
 name: general
 
 "on":
+  workflow_dispatch:
   push:
     branches:
       - master
   pull_request:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
   linting:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'rolehippie'
 
     steps:
       - name: Checkout source
@@ -23,6 +24,7 @@ jobs:
 
   testing:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'rolehippie'
 
     strategy:
       fail-fast: false
@@ -35,12 +37,18 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Molecule tests
-        uses: gofrolist/molecule-action@v2
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          molecule_command: test
-          molecule_args: --scenario-name ${{ matrix.scenario }}
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip3 install docker pytest-testinfra ansible molecule molecule-plugins[docker]
+
+      - name: Molecule tests
+        run: molecule test --scenario-name ${{ matrix.scenario }}
         env:
+          PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
 
 ...
