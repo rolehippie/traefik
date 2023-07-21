@@ -59,6 +59,7 @@ labels:
 branches:
   - name: master
     protection:
+      allow_force_pushes: true
       required_pull_request_reviews: null
       required_status_checks:
         strict: true
