@@ -2,7 +2,7 @@
 ---
 # @var traefik_version:description: Version of the Docker image
 # renovate: datasource=docker depName=library/traefik
-traefik_version: 2.10.3
+traefik_version: v2.10.4
 
 # @var traefik_image:description: Docker image to use
 traefik_image: "library/traefik:{{ traefik_version }}"
