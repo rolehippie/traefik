@@ -1,62 +1,6 @@
 {
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:base",
-        ":semanticCommits",
-        ":semanticCommitType(deps)",
-        ":automergeMinor"
-    ],
-    "regexManagers": [
-        {
-            "fileMatch": [
-                "defaults/main.yml"
-            ],
-            "matchStrings": [
-                "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.*?_version: (?<currentValue>.*)\\s"
-            ]
-        }
-    ],
-    "packageRules": [
-        {
-            "description": "Strip v prefix from versions",
-            "groupName": "version prefix",
-            "matchDatasources": [
-                "github-releases",
-                "github-tags"
-            ],
-            "extractVersion": "^v(?<version>.*)$"
-        },
-        {
-            "description": "Semantic commits for major versions",
-            "groupName": "major versions",
-            "matchUpdateTypes": [
-                "major"
-            ],
-            "semanticCommitType": "major",
-            "semanticCommitScope": "deps",
-            "automerge": false
-        },
-        {
-            "description": "Semantic commits for minor versions",
-            "groupName": "minor versions",
-            "matchUpdateTypes": [
-                "minor"
-            ],
-            "semanticCommitType": "minor",
-            "semanticCommitScope": "deps",
-            "automerge": true
-        },
-        {
-            "description": "Semantic commits for patch versions",
-            "groupName": "patch versions",
-            "matchUpdateTypes": [
-                "patch"
-            ],
-            "semanticCommitType": "patch",
-            "semanticCommitScope": "deps",
-            "automerge": true
-        }
-    ],
-    "labels": [
-        "renovate"
+        "github>rolehippie/.github//renovate/preset"
     ]
 }
