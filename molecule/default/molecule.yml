@@ -8,7 +8,7 @@ dependency:
     ANSIBLE_GALAXY_DISPLAY_PROGRESS: "false"
 
 driver:
-  name: docker
+  name: containers
 
 platforms:
   - name: traefik-ubuntu-22
