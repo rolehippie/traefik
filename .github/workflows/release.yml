@@ -23,7 +23,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
         with:
           extra_plugins: |
-            conventional-changelog-conventionalcommits
+            conventional-changelog-conventionalcommits@6.1.0
 
       - name: Write buildtime
         run: date >| .github/RELEASEDATE
