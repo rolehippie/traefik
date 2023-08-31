@@ -13,10 +13,6 @@
     devshell = {
       url = "github:numtide/devshell";
     };
-
-    moleculepkgs = {
-      url = "github:dawidd6/nixpkgs/molecule";
-    };
   };
 
   outputs = inputs@{ flake-parts, ... }:
@@ -34,68 +30,63 @@
       ];
 
       perSystem = { config, self', inputs', pkgs, system, ... }:
-      let
-        molecule-plugins = inputs.moleculepkgs.legacyPackages.${system}.python3Packages.molecule-plugins;
-        molecule = inputs.moleculepkgs.legacyPackages.${system}.molecule;
+        let
+          python310 = pkgs.python310.withPackages (p: with p; [
+            pytest
+            pytest-testinfra
+            molecule
+            molecule-plugins
+          ]);
 
-        python310 = pkgs.python310.withPackages (p: with p; [
-          pytest
-          pytest-testinfra
-          molecule
-          molecule-plugins
-        ]);
+        in
+        {
+          pre-commit = {
+            check = {
+              enable = true;
+            };
 
-      in
-      {
-        pre-commit = {
-          check = {
-            enable = true;
-          };
-
-          settings = {
-            hooks = {
-              later = {
-                enable = true;
-                name = "ansible-later";
-                description = "Run ansible-later on all files in the project";
-                files = "\\.(yml|yaml)$";
-                entry = "${pkgs.ansible-later}/bin/ansible-later";
+            settings = {
+              hooks = {
+                later = {
+                  enable = true;
+                  name = "ansible-later";
+                  description = "Run ansible-later on all files in the project";
+                  files = "\\.(yml|yaml)$";
+                  entry = "${pkgs.ansible-later}/bin/ansible-later";
+                };
               };
             };
           };
-        };
 
-        devshells = {
-          default = {
-            commands = [
-              {
-                name = "later";
-                help = "execute later command";
-                command = "${pkgs.ansible-later}/bin/ansible-later";
-              }
-              {
-                name = "doctor";
-                help = "execute doctor command";
-                command = "${pkgs.ansible-doctor}/bin/ansible-doctor -fv";
-              }
-              {
-                name = "testing";
-                help = "execute molecule command";
-                command = "${molecule}/bin/molecule test --scenario-name default";
-              }
-            ];
+          devshells = {
+            default = {
+              commands = [
+                {
+                  name = "later";
+                  help = "execute later command";
+                  command = "${pkgs.ansible-later}/bin/ansible-later";
+                }
+                {
+                  name = "doctor";
+                  help = "execute doctor command";
+                  command = "${pkgs.ansible-doctor}/bin/ansible-doctor -fv";
+                }
+                {
+                  name = "testing";
+                  help = "execute molecule command";
+                  command = "${pkgs.molecule}/bin/molecule test --scenario-name default";
+                }
+              ];
 
-            packages = with pkgs; [
-              ansible
-              ansible-doctor
-              ansible-lint
-              ansible-later
+              packages = with pkgs; [
+                ansible-doctor
+                ansible-lint
+                ansible-later
 
-              molecule
-              python310
-            ];
+                python310
+              ];
+            };
           };
         };
-      };
     };
 }
