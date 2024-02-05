@@ -4,4 +4,8 @@ rules:
     - molecule/ubuntu/tests
     - README.md
 
+yamllint:
+  document-end:
+    present: True
+
 ...
