@@ -1,26 +1,51 @@
-# Standards: 1.2
 ---
 - name: Prepare
   hosts: all
   gather_facts: False
 
   tasks:
+    - name: Stat apt dir
+      register: aptdir
+      ansible.builtin.stat:
+        path: /var/lib/apt
+
     - name: Wait for aptlock
-      shell: while fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do echo 'Waiting for apt list lock.' && sleep 10; done
+      when: aptdir.stat.exists
       changed_when: False
+      ansible.builtin.shell:
+        cmd: while fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do echo 'Waiting for apt list lock.' && sleep 10; done
 
     - name: Update package cache
-      apt:
+      when: aptdir.stat.exists
+      ansible.builtin.apt:
         update_cache: True
 
-    - name: Install gpg dependency
-      apt:
-        name: python3-gpg
+    - name: Install test dependencies
+      when: aptdir.stat.exists
+      loop:
+        - python3-gpg
+        - curl
+      ansible.builtin.apt:
+        name: "{{ item }}"
         state: present
 
-    - name: Install curl dependency
-      apt:
-        name: curl
-        state: present
+    - name: Create man dirs
+      changed_when: False
+      loop:
+        - /usr/share/man/man1
+        - /usr/share/man/man2
+        - /usr/share/man/man3
+        - /usr/share/man/man4
+        - /usr/share/man/man5
+        - /usr/share/man/man6
+        - /usr/share/man/man7
+        - /usr/share/man/man8
+        - /usr/share/man/man9
+      ansible.builtin.file:
+        path: "{{ item }}"
+        owner: root
+        group: root
+        mode: u=rwx,g=rx,o=rx
+        state: directory
 
 ...

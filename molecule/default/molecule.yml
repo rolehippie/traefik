@@ -1,4 +1,3 @@
-# Standards: 1.2
 ---
 dependency:
   name: galaxy
@@ -28,21 +27,6 @@ platforms:
       container: docker
   - name: traefik-ubuntu-20
     image: docker.io/geerlingguy/docker-ubuntu2004-ansible:latest
-    hostname: ubuntu
-    privileged: True
-    pre_build_image: True
-    override_command: False
-    cgroupns_mode: host
-    tmpfs:
-      - /tmp
-      - /run
-      - /run/lock
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    environment:
-      container: docker
-  - name: traefik-ubuntu-18
-    image: docker.io/geerlingguy/docker-ubuntu1804-ansible:latest
     hostname: ubuntu
     privileged: True
     pre_build_image: True

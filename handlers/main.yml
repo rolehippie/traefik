@@ -1,13 +1,12 @@
-# Standards: 1.2
 ---
 - name: Restart traefik
-  systemd:
+  ansible.builtin.systemd:
     name: traefik
     state: restarted
     daemon_reload: True
 
 - name: Reload traefik
-  systemd:
+  ansible.builtin.systemd:
     name: traefik
     state: '{{ "restarted" if traefik_force_restart else "reloaded" }}'
     daemon_reload: True
