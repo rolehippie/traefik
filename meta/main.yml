@@ -16,6 +16,7 @@
 # @end
 # @meta dependencies:value: >
 # [rolehippie.docker](https://github.com/rolehippie/docker)
+# [community.docker](https://github.com/ansible-collections/community.docker)
 # @end
 galaxy_info:
   role_name: traefik
