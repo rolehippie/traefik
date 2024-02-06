@@ -2,7 +2,7 @@
 - name: Create required dirs
   with_items:
     - /etc/traefik
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: root
@@ -14,7 +14,7 @@
 - name: Write general config
   notify:
     - Reload traefik
-  template:
+  ansible.builtin.template:
     src: config.j2
     dest: /etc/traefik/traefik.yml
     owner: root
@@ -26,7 +26,7 @@
 - name: Write static config
   notify:
     - Reload traefik
-  template:
+  ansible.builtin.template:
     src: static.j2
     dest: /etc/traefik/static.yml
     owner: root
@@ -38,7 +38,7 @@
 - name: Write env default
   notify:
     - Restart traefik
-  template:
+  ansible.builtin.template:
     src: default.j2
     dest: /etc/default/traefik
     owner: root
@@ -50,7 +50,7 @@
 - name: Write service file
   notify:
     - Restart traefik
-  template:
+  ansible.builtin.template:
     src: service.j2
     dest: /etc/systemd/system/traefik.service
     owner: root
@@ -62,7 +62,7 @@
 - name: Pull docker image
   when:
     - traefik_pull_image
-  docker_image:
+  community.docker.docker_image:
     name: "{{ traefik_image }}"
     source: pull
   tags:
@@ -71,13 +71,13 @@
 - name: Create docker network
   when:
     - traefik_network | default(False)
-  docker_network:
+  community.docker.docker_network:
     name: '{{ traefik_network }}'
   tags:
     - traefik
 
 - name: Start traefik service
-  systemd:
+  ansible.builtin.systemd:
     name: traefik
     state: started
     daemon_reload: True
