@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.0.0](https://github.com/rolehippie/traefik/compare/v1.2.4...v2.0.0) (2024-02-12)
+
+
+### Features
+
+* drop support for ubuntu 18.04 ([e1bab8b](https://github.com/rolehippie/traefik/commit/e1bab8b4a29294ef8b461dcec96427f2317e4e35))
+* used full qualified collection names ([4597b3f](https://github.com/rolehippie/traefik/commit/4597b3f3c1a50b6cb010f5fa85f7dd9200759844))
+
+
+### Bugfixes
+
+* remove meta requirements and document used collections ([a59452a](https://github.com/rolehippie/traefik/commit/a59452aa327e82787ea59ca11e3f5ead8dbc9722))
+
 ## [1.2.4](https://github.com/rolehippie/traefik/compare/v1.2.3...v1.2.4) (2023-12-11)
 
 
