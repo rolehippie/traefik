@@ -17,10 +17,7 @@ platforms:
     pre_build_image: True
     override_command: False
     cgroupns_mode: host
-    tmpfs:
-      - /tmp
-      - /run
-      - /run/lock
+    systemd: always
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     environment:
@@ -32,10 +29,7 @@ platforms:
     pre_build_image: True
     override_command: False
     cgroupns_mode: host
-    tmpfs:
-      - /tmp
-      - /run
-      - /run/lock
+    systemd: always
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     environment:
