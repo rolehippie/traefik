@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/rolehippie/traefik/compare/v2.1.0...v2.1.1) (2024-03-22)
+
+
+### Bugfixes
+
+* remove ansible commands from config template. ([#32](https://github.com/rolehippie/traefik/issues/32)) ([9e3a2c7](https://github.com/rolehippie/traefik/commit/9e3a2c7baf30c85404e90d073d89ac1b4b91ede0))
+
 ## [2.1.0](https://github.com/rolehippie/traefik/compare/v2.0.0...v2.1.0) (2024-03-18)
 
 
