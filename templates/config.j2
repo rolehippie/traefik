@@ -58,11 +58,15 @@ providers:
 {% endif %}
     defaultRule: {{ traefik_docker_default_rule }}
 
+  ansible.builtin.file:
+    filename: /etc/traefik/static.yml
+    watch: true
 {% if traefik_api_enabled %}
 
 api:
   insecure: {{ traefik_api_insecure | lower }}
   dashboard: {{ traefik_api_dashboard | lower }}
+  ansible.builtin.debug: {{ traefik_api_debug | lower }}
 {% endif %}
 {% if traefik_prometheus_enabled %}
 
