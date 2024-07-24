@@ -1,25 +1,29 @@
 {
-  description = "Description for the project";
+  description = "Nix flake for development";
 
   inputs = {
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
-    pre-commit-hooks = {
+    devenv = {
+      url = "github:cachix/devenv";
+    };
+
+    pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
     };
 
-    devshell = {
-      url = "github:numtide/devshell";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
     };
   };
 
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        inputs.pre-commit-hooks.flakeModule
-        inputs.devshell.flakeModule
+        inputs.devenv.flakeModule
+        inputs.pre-commit-hooks-nix.flakeModule
       ];
 
       systems = [
@@ -29,62 +33,59 @@
         "aarch64-darwin"
       ];
 
-      perSystem = { config, self', inputs', pkgs, system, ... }:
-        let
-          python310 = pkgs.python310.withPackages (p: with p; [
-            pytest
-            pytest-testinfra
-            molecule
-            molecule-plugins
-          ]);
+      perSystem = { config, self', inputs', pkgs, system, ... }: {
+          imports = [
+            {
+              _module.args.pkgs = import inputs.nixpkgs {
+                inherit system;
+                config.allowUnfree = true;
+              };
+            }
+          ];
 
-        in
-        {
           pre-commit = {
-            check = {
-              enable = true;
-            };
-
             settings = {
               hooks = {
+                nixpkgs-fmt = {
+                  enable = true;
+                };
                 later = {
                   enable = true;
                   name = "ansible-later";
                   description = "Run ansible-later on all files in the project";
                   files = "\\.(yml|yaml)$";
-                  entry = "${pkgs.ansible-later}/bin/ansible-later";
+                  entry = "${pkgs.podman}/bin/podman run --pull newer -ti --rm -v $(pwd):$(pwd):Z -w $(pwd) ghcr.io/toolhippie/ansible-later ansible-later";
                 };
               };
             };
           };
 
-          devshells = {
-            default = {
-              commands = [
-                {
-                  name = "later";
-                  help = "execute later command";
-                  command = "${pkgs.ansible-later}/bin/ansible-later";
-                }
-                {
-                  name = "doctor";
-                  help = "execute doctor command";
-                  command = "${pkgs.ansible-doctor}/bin/ansible-doctor -fv";
-                }
-                {
-                  name = "testing";
-                  help = "execute molecule command";
-                  command = "${pkgs.molecule}/bin/molecule test --scenario-name default";
-                }
-              ];
+          devenv = {
+            shells = {
+              default = {
+                languages = {
+                  python = {
+                    enable = true;
+                    package = pkgs.python312;
+                  };
+                };
 
-              packages = with pkgs; [
-                ansible-doctor
-                ansible-lint
-                ansible-later
+                scripts = {
+                  testing = {
+                    exec = "${pkgs.molecule}/bin/molecule test --scenario-name default";
+                  };
+                  later = {
+                    exec = "${pkgs.podman}/bin/podman run --pull newer -ti --rm -v $(pwd):$(pwd):Z -w $(pwd) ghcr.io/toolhippie/ansible-later ansible-later";
+                  };
+                  doctor = {
+                    exec = "${pkgs.podman}/bin/podman run --pull newer -ti --rm -v $(pwd):$(pwd):Z -w $(pwd) ghcr.io/toolhippie/ansible-doctor ansible-doctor -fv";
+                  };
+                };
 
-                python310
-              ];
+                packages = with pkgs; [
+                  nixpkgs-fmt
+                ];
+              };
             };
           };
         };
