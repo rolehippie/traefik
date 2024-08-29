@@ -30,7 +30,7 @@ jobs:
 
       - name: Source rebase
         id: rebase
-        run: git pull --auto-stash --rebase
+        run: git pull --autostash --rebase
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
