@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.2](https://github.com/rolehippie/traefik/compare/v3.1.1...v3.1.2) (2024-09-02)
+
+
+### Bugfixes
+
+* **deps:** update library/traefik docker tag to v3.1.2 ([a834764](https://github.com/rolehippie/traefik/commit/a8347648786afce828af471cd6cde112914e1e0d))
+
 ## [3.1.1](https://github.com/rolehippie/traefik/compare/v3.1.0...v3.1.1) (2024-08-05)
 
 
