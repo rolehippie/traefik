@@ -22,7 +22,7 @@ jobs:
 
       - name: Install nix
         id: nix
-        uses: cachix/install-nix-action@v27
+        uses: cachix/install-nix-action@v30
 
       - name: Update flake
         id: flake
