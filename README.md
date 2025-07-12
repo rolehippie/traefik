@@ -1,4 +1,4 @@
-# traefik
+# workspace
 
 [![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/traefik)
 [![General Workflow](https://github.com/rolehippie/traefik/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/traefik/actions/workflows/general.yml)
@@ -902,13 +902,12 @@ Version of the Docker image
 #### Default value
 
 ```YAML
-traefik_version: v3.4.3
+traefik_version: v3.4.4
 ```
 
 ## Discovered Tags
 
 **_traefik_**
-
 
 ## Dependencies
 
