@@ -1,5 +1,6 @@
 # ---> Ansible
 *.retry
+.ansible/
 
 # ---> Python
 __pycache__/
@@ -9,3 +10,4 @@ __pycache__/
 # ---> Flake
 .direnv/
 .devenv/
+.pre-commit-config.yaml

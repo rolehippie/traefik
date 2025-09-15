@@ -10,20 +10,20 @@
       url = "github:cachix/devenv";
     };
 
-    pre-commit-hooks-nix = {
-      url = "github:cachix/pre-commit-hooks.nix";
-    };
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };
+
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+    };
   };
 
-  outputs = inputs@{ flake-parts, ... }:
+  outputs =
+    inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.devenv.flakeModule
-        inputs.pre-commit-hooks-nix.flakeModule
       ];
 
       systems = [
@@ -33,7 +33,38 @@
         "aarch64-darwin"
       ];
 
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        let
+          plugins = pkgs.python313Packages.molecule-plugins.overridePythonAttrs (old: rec {
+            pname = "molecule-plugins";
+            version = "25.8.12";
+            src = pkgs.fetchPypi {
+              inherit version;
+              pname = "molecule_plugins";
+              hash = "sha256-dfMnY+kCdb/CS8wNJ7m7IqyXNli/kCsuPor44qHDIIM=";
+            };
+          });
+
+          molecule = pkgs.python313Packages.molecule.override {
+            molecule-plugins = plugins;
+          };
+
+          dockermolecule = pkgs.python313.withPackages (
+            ps: with ps; [
+              docker
+              molecule
+            ]
+          );
+        in
+        {
           imports = [
             {
               _module.args.pkgs = import inputs.nixpkgs {
@@ -43,47 +74,37 @@
             }
           ];
 
-          pre-commit = {
-            settings = {
-              hooks = {
-                nixpkgs-fmt = {
-                  enable = true;
-                };
-                later = {
-                  enable = true;
-                  name = "ansible-later";
-                  description = "Run ansible-later on all files in the project";
-                  files = "\\.(yml|yaml)$";
-                  entry = "${pkgs.podman}/bin/podman run --pull newer -ti --rm -v $(pwd):$(pwd):Z -w $(pwd) ghcr.io/toolhippie/ansible-later ansible-later";
-                };
-              };
-            };
-          };
-
           devenv = {
             shells = {
               default = {
-                languages = {
-                  python = {
-                    enable = true;
-                    package = pkgs.python312;
+                git-hooks = {
+                  hooks = {
+                    nixpkgs-fmt = {
+                      enable = true;
+                    };
+                    ansible-lint = {
+                      enable = true;
+                    };
                   };
                 };
 
                 scripts = {
                   testing = {
-                    exec = "${pkgs.molecule}/bin/molecule test --scenario-name default";
+                    exec = "${dockermolecule}/bin/molecule test --scenario-name default";
                   };
-                  later = {
-                    exec = "${pkgs.podman}/bin/podman run --pull newer -ti --rm -v $(pwd):$(pwd):Z -w $(pwd) ghcr.io/toolhippie/ansible-later ansible-later";
+                  lint = {
+                    exec = "${pkgs.ansible-lint}/bin/ansible-lint";
                   };
                   doctor = {
-                    exec = "${pkgs.podman}/bin/podman run --pull newer -ti --rm -v $(pwd):$(pwd):Z -w $(pwd) ghcr.io/toolhippie/ansible-doctor ansible-doctor -fv";
+                    exec = "${pkgs.ansible-doctor}/bin/ansible-doctor -fv";
                   };
                 };
 
                 packages = with pkgs; [
+                  dockermolecule
                   nixpkgs-fmt
+                  ansible-lint
+                  ansible-doctor
                 ];
               };
             };
