@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       - name: Role linting
-        uses: actionhippie/ansible-later@v5
+        uses: actionhippie/ansible-later@adf8951ab8751c11f009e2ef7d001d37f115932f # v5
 
   testing:
     runs-on: ubuntu-latest
@@ -35,10 +35,10 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6
         with:
           python-version: 3.x
 

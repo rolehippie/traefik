@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       - name: Galaxy upload
-        uses: robertdebock/galaxy-action@1.2.1
+        uses: robertdebock/galaxy-action@7d89099e09f4385ec4b53eb58c0d120f1ad806dd # 1.2.1
         with:
           galaxy_api_key: ${{ secrets.GALAXY_TOKEN }}
 
