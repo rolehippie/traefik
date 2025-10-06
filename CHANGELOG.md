@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.3](https://github.com/rolehippie/traefik/compare/v3.5.2...v3.5.3) (2025-10-06)
+
+
+### Bugfixes
+
+* **patch:** update library/traefik docker tag to v3.5.3 ([2f77288](https://github.com/rolehippie/traefik/commit/2f772888549fdadf583d87d6adea9b116e07b752))
+
 ## [3.5.2](https://github.com/rolehippie/traefik/compare/v3.5.1...v3.5.2) (2025-09-15)
 
 
