@@ -19,7 +19,7 @@ jobs:
           token: ${{ secrets.BOT_ACCESS_TOKEN }}
 
       - name: Generate readme
-        uses: actionhippie/ansible-doctor@62897c57e817e636abb656ef0d06bba715efbff4 # v5
+        uses: actionhippie/ansible-doctor@f254d17d3e84bd56e7ef769c6ba7a8e40ea0348e # v5
         with:
           force: true
           verbose: true
