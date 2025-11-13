@@ -10,6 +10,9 @@ name: galaxy
     tags:
       - v*
 
+permissions:
+  contents: read
+
 jobs:
   galaxy:
     runs-on: ubuntu-latest

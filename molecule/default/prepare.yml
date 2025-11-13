@@ -1,7 +1,7 @@
 ---
 - name: Prepare
   hosts: all
-  gather_facts: False
+  gather_facts: false
 
   tasks:
     - name: Stat apt dir
@@ -11,18 +11,19 @@
 
     - name: Wait for aptlock
       when: aptdir.stat.exists
-      changed_when: False
+      changed_when: false
       ansible.builtin.shell:
         cmd: while fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do echo 'Waiting for apt list lock.' && sleep 10; done
 
     - name: Update package cache
       when: aptdir.stat.exists
       ansible.builtin.apt:
-        update_cache: True
+        update_cache: true
 
     - name: Install test dependencies
       when: aptdir.stat.exists
       loop:
+        - cron
         - python3-gpg
         - curl
       ansible.builtin.apt:
@@ -30,7 +31,7 @@
         state: present
 
     - name: Create man dirs
-      changed_when: False
+      changed_when: false
       loop:
         - /usr/share/man/man1
         - /usr/share/man/man2

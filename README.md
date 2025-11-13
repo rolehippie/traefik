@@ -1,4 +1,4 @@
-# workspace
+# traefik
 
 [![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/traefik)
 [![General Workflow](https://github.com/rolehippie/traefik/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/traefik/actions/workflows/general.yml)
@@ -212,7 +212,7 @@ traefik_cert_resolvers:
       entrypoint: http
   - name: default-tls
     email: webmaster@example.com
-    tls_challenge: True
+    tls_challenge: true
 ```
 
 ### traefik_check_new_version

@@ -7,16 +7,16 @@ traefik_version: v3.5.4
 traefik_image: "library/traefik:{{ traefik_version }}"
 
 # @var traefik_pull_image:description: Pull image as part of the tasks
-traefik_pull_image: True
+traefik_pull_image: true
 
 # @var traefik_force_restart:description: Force a restart of the service
-traefik_force_restart: False
+traefik_force_restart: false
 
 # @var traefik_proxy_metrics:description: Enable builtin rules for metrics
-traefik_proxy_metrics: True
+traefik_proxy_metrics: true
 
 # @var traefik_proxy_dashboard:description: Enable builtin rules for dashboard
-traefik_proxy_dashboard: True
+traefik_proxy_dashboard: true
 
 # @var traefik_dashboard_host_rule:description: Host rule for the dashboard
 traefik_dashboard_host_rule: '{{ ansible_fqdn }}'
@@ -57,13 +57,13 @@ traefik_environment_variables: []
 traefik_root_certificates: []
 
 # @var traefik_check_new_version:description: Check for a new version online
-traefik_check_new_version: False
+traefik_check_new_version: false
 
 # @var traefik_send_anonymous_usage:description: Send anonymous usage information to authors
-traefik_send_anonymous_usage: True
+traefik_send_anonymous_usage: true
 
 # @var traefik_insecure_skip_verify:description: Server transport insecure skip verify
-traefik_insecure_skip_verify: True
+traefik_insecure_skip_verify: true
 
 # @var traefik_max_idle_conns:description: Server transport max idle connections per host
 traefik_max_idle_conns: 100
@@ -122,18 +122,18 @@ traefik_standard_middlewares:
     kind: redirectScheme
     attrs:
       scheme: https
-      permanent: True
+      permanent: true
   - name: secure
     kind: headers
     attrs:
-      forceSTSHeader: True
-      stsIncludeSubdomains: False
-      stsPreload: True
+      forceSTSHeader: true
+      stsIncludeSubdomains: false
+      stsPreload: true
       stsSeconds: 315360000
-      sslRedirect: True
+      sslRedirect: true
       customFrameOptionsValue: SAMEORIGIN
-      contentTypeNosniff: True
-      browserXssFilter: True
+      contentTypeNosniff: true
+      browserXssFilter: true
       referrerPolicy: strict-origin-when-cross-origin
 
 # @var traefik_additional_middlewares:description: Additional available middlewares
@@ -143,10 +143,10 @@ traefik_additional_middlewares: []
 traefik_provider_throttle_duration: 0
 
 # @var traefik_docker_exposed_by_default:description: Expose service by default for docker provider
-traefik_docker_exposed_by_default: False
+traefik_docker_exposed_by_default: false
 
 # @var traefik_docker_bind_port_ip:description: Use bind port ip for docker provider
-traefik_docker_bind_port_ip: False
+traefik_docker_bind_port_ip: false
 
 # @var traefik_docker_network_name:description: Docker network used by docker provider
 # @var traefik_docker_network_name:example: $ "traefik"
@@ -156,22 +156,22 @@ traefik_docker_network_name:
 traefik_docker_default_rule: !unsafe 'Host(`{{ normalize .Name }}`)'
 
 # @var traefik_api_enabled:description:  Enable API endpoints
-traefik_api_enabled: True
+traefik_api_enabled: true
 
 # @var traefik_api_insecure:description: Enable insecure access for API
-traefik_api_insecure: False
+traefik_api_insecure: false
 
 # @var traefik_api_dashboard:description: Enable dashboard API
-traefik_api_dashboard: True
+traefik_api_dashboard: true
 
 # @var traefik_api_debug:description: Enable debug mode within API
-traefik_api_debug: False
+traefik_api_debug: false
 
 # @var traefik_ping_entrypoint:description: Entrypoint used for ping
 traefik_ping_entrypoint:
 
 # @var traefik_prometheus_enabled:description: Enable prometheus exporter
-traefik_prometheus_enabled: True
+traefik_prometheus_enabled: true
 
 # @var traefik_prometheus_entrypoint:description: Entrypoint used for prometheus metrics
 traefik_prometheus_entrypoint: metrics
@@ -184,13 +184,13 @@ traefik_prometheus_buckets:
   - 5.0
 
 # @var traefik_prometheus_entrypoint_labels:description: Add entrypoint labels for prometheus metrics
-traefik_prometheus_entrypoint_labels: True
+traefik_prometheus_entrypoint_labels: true
 
 # @var traefik_prometheus_service_labels:description: Add service labels for prometheus metrics
-traefik_prometheus_service_labels: True
+traefik_prometheus_service_labels: true
 
 # @var traefik_tracing_enabled:description: Enable distributed tracing
-traefik_tracing_enabled: False
+traefik_tracing_enabled: false
 
 # @var traefik_tracing_service_name:description: Tracing service name to send
 traefik_tracing_service_name: traefik
@@ -211,7 +211,7 @@ traefik_tracing_sampling_param: 1.0
 traefik_tracing_local_agent:
 
 # @var traefik_tracing_128bit_spans:description: Jaeger tracing gen 128bit spans
-traefik_tracing_128bit_spans: False
+traefik_tracing_128bit_spans: false
 
 # @var traefik_tracing_propagation_format:description: Jaeger tracing propagation format
 traefik_tracing_propagation_format: jaeger
@@ -241,12 +241,12 @@ traefik_tracing_collector_password:
 #       entrypoint: http
 #   - name: default-tls
 #     email: webmaster@example.com
-#     tls_challenge: True
+#     tls_challenge: true
 # @end
 traefik_cert_resolvers: []
 
 # @var traefik_hostresolver_cname_flattening:description: Enable cname flattening for resolver
-traefik_hostresolver_cname_flattening: False
+traefik_hostresolver_cname_flattening: false
 
 # @var traefik_hostresolver_resolv_config:description: Path to host resolv config
 traefik_hostresolver_resolv_config: /etc/resolv.conf

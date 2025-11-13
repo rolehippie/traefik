@@ -16,12 +16,12 @@ ExecStartPre=/bin/sh -c '/usr/bin/docker ps -a | /bin/grep %p 1> /dev/null && /u
 ExecStart=/usr/bin/docker run --rm \
   --name %p \
   --hostname %p \
-{% if traefik_proxy_metrics | default(True) or traefik_proxy_dashboard | default(True) %}
+{% if traefik_proxy_metrics | default(true) or traefik_proxy_dashboard | default(true) %}
   --label traefik.enable=true \
-{% if traefik_docker_network_name | default(False) %}
+{% if traefik_docker_network_name | default(false) %}
   --label traefik.docker.network={{ traefik_docker_network_name }} \
 {% endif %}
-{% if traefik_proxy_metrics | default(True) %}
+{% if traefik_proxy_metrics | default(true) %}
   --label traefik.http.services.metrics.loadbalancer.server.port=8082 \
   --label traefik.http.services.metrics.loadbalancer.server.scheme=http \
   --label traefik.http.services.metrics.loadbalancer.passhostheader=true \
@@ -29,7 +29,7 @@ ExecStart=/usr/bin/docker run --rm \
   --label traefik.http.routers.metrics.service=metrics@docker \
   --label traefik.http.routers.metrics.entrypoints={{ traefik_dashboard_https_entrypoint }} \
   --label traefik.http.routers.metrics.tls=true \
-{% if traefik_dashboard_cert_resolver | default(False) %}
+{% if traefik_dashboard_cert_resolver | default(false) %}
   --label traefik.http.routers.metrics.tls.certresolver={{ traefik_dashboard_cert_resolver }} \
 {% endif %}
   --label traefik.http.routers.metrics.middlewares={{ traefik_dashboard_middlewares | join(",") }} \
@@ -38,12 +38,12 @@ ExecStart=/usr/bin/docker run --rm \
   --label traefik.http.routers.metrics-insecure.entrypoints={{ traefik_dashboard_http_entrypoint }} \
   --label traefik.http.routers.metrics-insecure.middlewares={{ traefik_dashboard_middlewares | join(",") }} \
 {% endif %}
-{% if traefik_proxy_dashboard | default(True) %}
+{% if traefik_proxy_dashboard | default(true) %}
   --label traefik.http.routers.traefik.rule="Host(`{{ traefik_dashboard_host_rule }}`)" \
   --label traefik.http.routers.traefik.service=api@internal \
   --label traefik.http.routers.traefik.entrypoints={{ traefik_dashboard_https_entrypoint }} \
   --label traefik.http.routers.traefik.tls=true \
-{% if traefik_dashboard_cert_resolver | default(False) %}
+{% if traefik_dashboard_cert_resolver | default(false) %}
   --label traefik.http.routers.traefik.tls.certresolver={{ traefik_dashboard_cert_resolver }} \
 {% endif %}
   --label traefik.http.routers.traefik.middlewares={{ traefik_dashboard_middlewares | join(",") }} \
@@ -56,7 +56,7 @@ ExecStart=/usr/bin/docker run --rm \
   --label traefik.enable=false \
 {% endif %}
   --env-file /etc/default/traefik \
-{% if traefik_docker_network_name | default(False) %}
+{% if traefik_docker_network_name | default(false) %}
   --network {{ traefik_docker_network_name }} \
 {% endif %}
   --volume /etc/ssl:/etc/ssl:ro \

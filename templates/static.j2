@@ -3,22 +3,22 @@ tls:
     default:
       minVersion: {{ traefik_tls_min_version }}
       cipherSuites:
-        {{ traefik_tls_cipher_suites | to_nice_yaml | trim | indent(width=8, first=False) }}
-{% if traefik_tls_default_certificate | default(False) %}
+        {{ traefik_tls_cipher_suites | to_nice_yaml | trim | indent(width=8, first=false) }}
+{% if traefik_tls_default_certificate | default(false) %}
 
   stores:
     default:
-{% if traefik_tls_default_certificate.crt | default(False) %}
+{% if traefik_tls_default_certificate.crt | default(false) %}
       defaultCertificate:
         certFile: {{ traefik_tls_default_certificate.crt }}
         keyFile: {{ traefik_tls_default_certificate.key }}
 {% endif %}
-{% if traefik_tls_default_certificate.generated | default(False) %}
+{% if traefik_tls_default_certificate.generated | default(false) %}
       defaultGeneratedCert:
-        {{ traefik_tls_default_certificate.generated | from_yaml | to_nice_yaml(indent=2) | indent(width=8, first=False) | trim }}
+        {{ traefik_tls_default_certificate.generated | from_yaml | to_nice_yaml(indent=2) | indent(width=8, first=false) | trim }}
 {% endif %}
 {% endif %}
-{% if traefik_tls_standard_certificates | default(False) or traefik_tls_additional_certificates | default(False) %}
+{% if traefik_tls_standard_certificates | default(false) or traefik_tls_additional_certificates | default(false) %}
 
   certificates:
 {% for item in traefik_tls_standard_certificates + traefik_tls_additional_certificates %}
@@ -32,36 +32,36 @@ http:
 {% for item in traefik_standard_middlewares + traefik_additional_middlewares %}
     {{ item.name }}:
       {{ item.kind }}:
-        {{ item.attrs | to_nice_yaml | trim | indent(width=8, first=False) }}
+        {{ item.attrs | to_nice_yaml | trim | indent(width=8, first=false) }}
 {% endfor %}
-{% if traefik_http_services | default(False) %}
+{% if traefik_http_services | default(false) %}
   services:
 {% for item in traefik_http_services %}
     {{ item.name }}:
-{% if item.weighted | default(False) %}
+{% if item.weighted | default(false) %}
       weighted:
         services:
-          {{ item.weighted | to_nice_yaml | trim | indent(width=10, first=False) }}
+          {{ item.weighted | to_nice_yaml | trim | indent(width=10, first=false) }}
 {% endif %}
-{% if item.mirroring | default(False) %}
+{% if item.mirroring | default(false) %}
       mirroring:
         service: {{ item.mirroring.service }}
         mirrors:
-          {{ item.mirroring.mirrors | to_nice_yaml | trim | indent(width=10, first=False) }}
+          {{ item.mirroring.mirrors | to_nice_yaml | trim | indent(width=10, first=false) }}
 {% endif %}
-{% if item.balancer | default(False) %}
+{% if item.balancer | default(false) %}
       loadBalancer:
-        passHostHeader: {{ item.balancer.pass_host_header | default(True) }}
-{% if item.balancer.healthcheck | default(False) %}
+        passHostHeader: {{ item.balancer.pass_host_header | default(true) }}
+{% if item.balancer.healthcheck | default(false) %}
         healthCheck:
-          {{ item.balancer.healthcheck | to_nice_yaml | trim | indent(width=10, first=False) }}
+          {{ item.balancer.healthcheck | to_nice_yaml | trim | indent(width=10, first=false) }}
 {% endif %}
         servers:
-          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, first=False) }}
+          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, first=false) }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if traefik_http_routers | default(False) %}
+{% if traefik_http_routers | default(false) %}
   routers:
 {% for item in traefik_http_routers %}
     {{ item.name }}:
@@ -70,59 +70,59 @@ http:
       priority: {{ item.priority | default(0) }}
       middlewares: {{ item.middlewares | default([]) | to_yaml | trim }}
       service: {{ item.service }}
-{% if item.tls | default(False) %}
+{% if item.tls | default(false) %}
       tls:
         options: {{ item.tls.options | default("default") }}
-{% if item.tls.resolver | default(False) %}
+{% if item.tls.resolver | default(false) %}
         certResolver: {{ item.tls.resolver }}
 {% endif %}
-{% if item.tls.domains | default(False) %}
+{% if item.tls.domains | default(false) %}
         domains:
-          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, first=False) }}
+          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, first=false) }}
 {% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}
 
 tcp:
-{% if traefik_tcp_services | default(False) %}
+{% if traefik_tcp_services | default(false) %}
   services:
 {% for item in traefik_tcp_services %}
     {{ item.name }}:
-{% if item.weighted | default(False) %}
+{% if item.weighted | default(false) %}
       weighted:
         services:
-          {{ item.weighted | to_nice_yaml | trim | indent(width=10, first=False) }}
+          {{ item.weighted | to_nice_yaml | trim | indent(width=10, first=false) }}
 {% endif %}
-{% if item.balancer | default(False) %}
+{% if item.balancer | default(false) %}
       loadBalancer:
         terminationDelay: {{ item.balancer.termination_delay | default(100) }}
         servers:
-          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, first=False) }}
+          {{ item.balancer.servers | to_nice_yaml | trim | indent(width=10, first=false) }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if traefik_tcp_routers | default(False) %}
+{% if traefik_tcp_routers | default(false) %}
   routers:
 {% for item in traefik_tcp_routers %}
     {{ item.name }}:
       entryPoints: {{ item.entrypoints | default([]) | to_yaml | trim }}
       rule: {{ item.rule }}
       service: {{ item.service }}
-{% if item.tls | default(False) %}
+{% if item.tls | default(false) %}
       tls:
 {% if item.tls.options | default("default") %}
         options: {{ item.tls.options | default("default") }}
 {% endif %}
-{% if item.tls.passthrough | default(False) %}
+{% if item.tls.passthrough | default(false) %}
         passthrough: true
 {% endif %}
-{% if item.tls.resolver | default(False) %}
+{% if item.tls.resolver | default(false) %}
         certResolver: {{ item.tls.resolver }}
 {% endif %}
-{% if item.tls.domains | default(False) %}
+{% if item.tls.domains | default(false) %}
         domains:
-          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, first=False) }}
+          {{ item.tls.domains | to_nice_yaml | trim | indent(width=10, first=false) }}
 {% endif %}
 {% endif %}
 {% endfor %}

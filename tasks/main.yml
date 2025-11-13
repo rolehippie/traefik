@@ -1,6 +1,6 @@
 ---
 - name: Create required dirs
-  with_items:
+  loop:
     - /etc/traefik
   ansible.builtin.file:
     path: "{{ item }}"
@@ -70,7 +70,7 @@
 
 - name: Create docker network
   when:
-    - traefik_network | default(False)
+    - false if traefik_network is none else (traefik_network | length > 0)| default(false)
   community.docker.docker_network:
     name: '{{ traefik_network }}'
   tags:
@@ -80,9 +80,9 @@
   ansible.builtin.systemd:
     name: traefik
     state: started
-    daemon_reload: True
-    masked: False
-    enabled: True
+    daemon_reload: true
+    masked: false
+    enabled: true
   tags:
     - traefik
 

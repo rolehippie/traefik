@@ -11,6 +11,9 @@ name: general
     branches:
       - master
 
+permissions:
+  contents: read
+
 jobs:
   linting:
     runs-on: ubuntu-latest
@@ -21,7 +24,9 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       - name: Role linting
-        uses: actionhippie/ansible-later@1a09ac161bf2aa3ea855e3540f81f1e0280b7ed0 # v6
+        uses: ansible/ansible-lint@main
+        with:
+          requirements_file: requirements.yml
 
   testing:
     runs-on: ubuntu-latest
@@ -35,13 +40,16 @@ jobs:
           - default
 
     steps:
+      - name: Drop hosted
+        run: rm -rf /opt/hostedtoolcache/Python
+
       - name: Checkout source
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       - name: Setup Python
         uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6
         with:
-          python-version: 3.x
+          python-version: 3.13
 
       - name: Install dependencies
         run: pip3 install docker pytest-testinfra ansible molecule molecule-plugins[docker]

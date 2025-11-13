@@ -15,7 +15,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    if: github.repository_owner == 'rolehippie' && github.actor == 'dependabot[bot]'
 
     steps:
       - name: Generate token
@@ -30,19 +30,16 @@ jobs:
             {"contents": "write", "pull_requests": "write", "issues": "write"}
 
       - name: Fetch metadata
-        id: metadata
         uses: dependabot/fetch-metadata@08eff52bf64351f401fb50d4972fa95b9f2c2d1b # v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Approve request
-        id: approve
         run: gh pr review --approve "${{github.event.pull_request.html_url}}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable automerge
-        id: automerge
         run: gh pr merge --rebase --auto "${{github.event.pull_request.html_url}}"
         env:
           GH_TOKEN: ${{ steps.token.outputs.token }}

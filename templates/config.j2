@@ -31,16 +31,16 @@ entryPoints:
         readTimeout: {{ item.read_timeout | default(0) }}
         writeTimeout: {{ item.write_timeout | default(0) }}
         idleTimeout: {{ item.idle_timeout | default(180) }}
-{% if item.proxy_protocol | default(False) %}
+{% if item.proxy_protocol | default(false) %}
 
     proxyProtocol:
-      insecure: {{ item.proxy_protocol.insecure | default(True) | lower }}
+      insecure: {{ item.proxy_protocol.insecure | default(true) | lower }}
       trustedIPs: {{ item.proxy_protocol.trusted_ips | to_yaml | trim }}
 {% endif %}
-{% if item.forwarded_headers | default(False) %}
+{% if item.forwarded_headers | default(false) %}
 
     forwardedHeaders:
-      insecure: {{ item.forwarded_headers.insecure | default(True) | lower }}
+      insecure: {{ item.forwarded_headers.insecure | default(true) | lower }}
       trustedIPs: {{ item.forwarded_headers.trusted_ips | to_yaml | trim }}
 {% endif %}
 {% endfor %}
@@ -53,7 +53,7 @@ providers:
     watch: true
     exposedByDefault: {{ traefik_docker_exposed_by_default | lower }}
     useBindPortIP: {{ traefik_docker_bind_port_ip | lower }}
-{% if traefik_docker_network_name | default(False) %}
+{% if traefik_docker_network_name | default(false) %}
     network: {{ traefik_docker_network_name }}
 {% endif %}
     defaultRule: {{ traefik_docker_default_rule }}
@@ -70,7 +70,7 @@ api:
 {% endif %}
 {% if traefik_prometheus_enabled %}
 
-{% if traefik_ping_entrypoint | default(False) %}
+{% if traefik_ping_entrypoint | default(false) %}
 ping:
   entryPoint: {{ traefik_ping_entrypoint }}
 {% else %}
@@ -79,7 +79,7 @@ ping: {}
 
 metrics:
   prometheus:
-{% if traefik_prometheus_entrypoint | default(False) %}
+{% if traefik_prometheus_entrypoint | default(false) %}
     entryPoint: {{ traefik_prometheus_entrypoint }}
 {% endif %}
     buckets: {{ traefik_prometheus_buckets | to_yaml | trim }}
@@ -105,7 +105,7 @@ tracing:
       user: {{ traefik_tracing_collector_user }}
       password: {{ traefik_tracing_collector_password }}
 {% endif %}
-{% if traefik_cert_resolvers | default(False) %}
+{% if traefik_cert_resolvers | default(false) %}
 
 certificatesResolvers:
 {% for item in traefik_cert_resolvers %}
@@ -115,18 +115,18 @@ certificatesResolvers:
       caServer: {{ item.server | default("https://acme-v02.api.letsencrypt.org/directory") }}
       storage: {{ item.storage | default("/etc/traefik/acme.json") }}
       keyType: {{ item.key_type | default("RSA4096") }}
-{% if item.dns_challenge | default(False) %}
+{% if item.dns_challenge | default(false) %}
       dnsChallenge:
         provider: {{ item.dns_challenge.provider }}
         delayBeforeCheck: {{ item.dns_challenge.delay | default(0) }}
         disablePropagationCheck: false
         resolvers: {{ item.dns_challenge.resolvers | default([]) | to_yaml | trim }}
 {% endif %}
-{% if item.http_challenge | default(False) %}
+{% if item.http_challenge | default(false) %}
       httpChallenge:
         entryPoint: {{ item.http_challenge.entrypoint }}
 {% endif %}
-{% if item.tls_challenge | default(False) %}
+{% if item.tls_challenge | default(false) %}
       tlsChallenge: {}
 {% endif %}
 {% endfor %}
