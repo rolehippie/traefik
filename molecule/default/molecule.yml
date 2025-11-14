@@ -11,39 +11,57 @@ driver:
 
 platforms:
   - name: traefik-ubuntu-24
-    image: docker.io/geerlingguy/docker-ubuntu2404-ansible:latest
+    image: quay.io/k0sproject/bootloose-ubuntu24.04:latest
+    command: /sbin/init
     hostname: ubuntu
     privileged: true
     pre_build_image: true
-    override_command: false
+    override_command: true
     cgroupns_mode: host
     systemd: always
+    tmpfs:
+      - /run
+      - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    capabilities:
+      - SYS_ADMIN
     environment:
       container: docker
   - name: traefik-ubuntu-22
-    image: docker.io/geerlingguy/docker-ubuntu2204-ansible:latest
+    image: quay.io/k0sproject/bootloose-ubuntu22.04:latest
+    command: /sbin/init
     hostname: ubuntu
     privileged: true
     pre_build_image: true
-    override_command: false
+    override_command: true
     cgroupns_mode: host
     systemd: always
+    tmpfs:
+      - /run
+      - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    capabilities:
+      - SYS_ADMIN
     environment:
       container: docker
   - name: traefik-ubuntu-20
-    image: docker.io/geerlingguy/docker-ubuntu2004-ansible:latest
+    image: quay.io/k0sproject/bootloose-ubuntu20.04:latest
+    command: /sbin/init
     hostname: ubuntu
     privileged: true
     pre_build_image: true
-    override_command: false
+    override_command: true
     cgroupns_mode: host
     systemd: always
+    tmpfs:
+      - /run
+      - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    capabilities:
+      - SYS_ADMIN
     environment:
       container: docker
 
