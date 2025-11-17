@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.0](https://github.com/rolehippie/traefik/compare/v3.5.4...v3.6.0) (2025-11-17)
+
+
+### Features
+
+* apply new repo structure and update linting ([8ff6a28](https://github.com/rolehippie/traefik/commit/8ff6a28ecb9a78dc67c912f254506acaff4848e8))
+
 ## [3.5.4](https://github.com/rolehippie/traefik/compare/v3.5.3...v3.5.4) (2025-11-10)
 
 
