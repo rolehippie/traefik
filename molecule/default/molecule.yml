@@ -7,7 +7,7 @@ dependency:
     ANSIBLE_GALAXY_DISPLAY_PROGRESS: "false"
 
 driver:
-  name: containers
+  name: docker
 
 platforms:
   - name: traefik-ubuntu-24
