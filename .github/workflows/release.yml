@@ -48,6 +48,9 @@ jobs:
           GITHUB_TOKEN: ${{ steps.token.outputs.token }}
         run: semantic-release
 
+      - name: Source rebase
+        run: git pull --autostash --rebase
+
       - name: Commit changes
         uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9
         with:
