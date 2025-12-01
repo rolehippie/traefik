@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.0.0](https://github.com/rolehippie/traefik/compare/v3.6.0...v4.0.0) (2025-12-01)
+
+
+### Features
+
+* **major:** update dependency community.docker to v5 ([5fbb55f](https://github.com/rolehippie/traefik/commit/5fbb55f864405edfc453ff8e8b5975cf2a0d2525))
+* **minor:** update library/traefik docker tag to v3.6.2 ([f27f944](https://github.com/rolehippie/traefik/commit/f27f944bcf2f1d8b673824c062e66860acfd0b17))
+
 ## [3.6.0](https://github.com/rolehippie/traefik/compare/v3.5.4...v3.6.0) (2025-11-17)
 
 
