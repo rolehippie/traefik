@@ -51,6 +51,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [traefik_log_format](#traefik_log_format)
   - [traefik_log_level](#traefik_log_level)
   - [traefik_max_idle_conns](#traefik_max_idle_conns)
+  - [traefik_network](#traefik_network)
   - [traefik_ping_entrypoint](#traefik_ping_entrypoint)
   - [traefik_prometheus_buckets](#traefik_prometheus_buckets)
   - [traefik_prometheus_enabled](#traefik_prometheus_enabled)
@@ -470,6 +471,16 @@ Server transport max idle connections per host
 
 ```YAML
 traefik_max_idle_conns: 100
+```
+
+### traefik_network
+
+Optional docker network to attach
+
+#### Default value
+
+```YAML
+traefik_network:
 ```
 
 ### traefik_ping_entrypoint

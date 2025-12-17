@@ -70,7 +70,7 @@
 
 - name: Create docker network
   when:
-    - false if traefik_network is none else (traefik_network | length > 0)| default(false)
+    - false if traefik_network is none else (traefik_network | length > 0)
   community.docker.docker_network:
     name: '{{ traefik_network }}'
   tags:

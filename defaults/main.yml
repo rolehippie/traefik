@@ -9,6 +9,9 @@ traefik_image: "library/traefik:{{ traefik_version }}"
 # @var traefik_pull_image:description: Pull image as part of the tasks
 traefik_pull_image: true
 
+# @var traefik_network:description: Optional docker network to attach
+traefik_network:
+
 # @var traefik_force_restart:description: Force a restart of the service
 traefik_force_restart: false
 
