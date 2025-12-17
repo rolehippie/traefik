@@ -1,6 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    docker_daemon_config:
+      storage-driver: vfs
   roles:
     - role: rolehippie.docker
     - role: rolehippie.traefik
