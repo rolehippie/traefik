@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.1.0](https://github.com/rolehippie/traefik/compare/v4.0.0...v4.1.0) (2025-12-22)
+
+
+### Features
+
+* default for traefik network does not exist ([e5e3839](https://github.com/rolehippie/traefik/commit/e5e3839460f01c82c2501e6826bcf103949c90bc))
+
+
+### Bugfixes
+
+* **patch:** update library/traefik docker tag to v3.6.5 ([#84](https://github.com/rolehippie/traefik/issues/84)) ([e3c636e](https://github.com/rolehippie/traefik/commit/e3c636e0455dd585537aa6d5d6764fcc9f43b987))
+
 ## [4.0.0](https://github.com/rolehippie/traefik/compare/v3.6.0...v4.0.0) (2025-12-01)
 
 
