@@ -60,6 +60,8 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [traefik_prometheus_service_labels](#traefik_prometheus_service_labels)
   - [traefik_provider_throttle_duration](#traefik_provider_throttle_duration)
   - [traefik_proxy_dashboard](#traefik_proxy_dashboard)
+  - [traefik_proxy_dashboard_insecure](#traefik_proxy_dashboard_insecure)
+  - [traefik_proxy_dashboard_secure](#traefik_proxy_dashboard_secure)
   - [traefik_proxy_metrics](#traefik_proxy_metrics)
   - [traefik_pull_image](#traefik_pull_image)
   - [traefik_root_certificates](#traefik_root_certificates)
@@ -565,6 +567,26 @@ Enable builtin rules for dashboard
 
 ```YAML
 traefik_proxy_dashboard: true
+```
+
+### traefik_proxy_dashboard_insecure
+
+Enable or disable builtin rules for dashboard via _insecure_ entrypoint
+
+#### Default value
+
+```YAML
+traefik_proxy_dashboard_insecure: true
+```
+
+### traefik_proxy_dashboard_secure
+
+Enable or disable builtin rules for dashboard via _secure_ entrypoint
+
+#### Default value
+
+```YAML
+traefik_proxy_dashboard_secure: true
 ```
 
 ### traefik_proxy_metrics
