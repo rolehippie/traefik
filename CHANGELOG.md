@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.2.0](https://github.com/rolehippie/traefik/compare/v4.1.1...v4.2.0) (2026-01-19)
+
+### Features
+
+* allow enable/disable of dashboard on secure/insecure entrypoint ([8efa2f0](https://github.com/rolehippie/traefik/commit/8efa2f0d1d423edba66308eace6a41ba4b9c7574))
+
+### Dependencies
+
+* **patch:** update library/traefik docker tag to v3.6.7 ([#90](https://github.com/rolehippie/traefik/issues/90)) ([d350dd4](https://github.com/rolehippie/traefik/commit/d350dd47abb8dd26b17e0397f2778e4a8823532e))
+
+### Miscellaneous
+
+* **flake:** updated lockfile [skip ci] ([80d80ee](https://github.com/rolehippie/traefik/commit/80d80ee08f08825dee077e5ba5bd075aa55f55bc))
+* **flake:** updated lockfile [skip ci] ([2a0adc7](https://github.com/rolehippie/traefik/commit/2a0adc7060016871aacbfdf54b4c7cfdc4d3b82d))
+
 ## [4.1.1](https://github.com/rolehippie/traefik/compare/v4.1.0...v4.1.1) (2026-01-05)
 
 
