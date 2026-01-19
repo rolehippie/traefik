@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Generate token
         id: token
-        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2
+        uses: tibdex/github-app-token@v2
         with:
           app_id: ${{ secrets.TOKEN_EXCHANGE_APP }}
           installation_retrieval_mode: id
@@ -29,12 +29,12 @@ jobs:
             {"contents": "write"}
 
       - name: Checkout source
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+        uses: actions/checkout@v6
         with:
           token: ${{ steps.token.outputs.token }}
 
       - name: Generate readme
-        uses: actionhippie/ansible-doctor@e7ada1e967dca103df8a2fe0aba5fb35daf8ac78 # v6
+        uses: actionhippie/ansible-doctor@v6
         with:
           force: true
           verbose: true
@@ -43,7 +43,7 @@ jobs:
         run: git pull --autostash --rebase
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9
+        uses: EndBug/add-and-commit@v9
         with:
           author_name: GitHub Actions
           author_email: github@webhippie.de
