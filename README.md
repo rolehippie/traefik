@@ -20,6 +20,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [traefik_accesslog_buffer](#traefik_accesslog_buffer)
   - [traefik_accesslog_format](#traefik_accesslog_format)
   - [traefik_additional_entrypoints](#traefik_additional_entrypoints)
+  - [traefik_additional_http_serverstransports](#traefik_additional_http_serverstransports)
   - [traefik_additional_middlewares](#traefik_additional_middlewares)
   - [traefik_additional_ports](#traefik_additional_ports)
   - [traefik_api_dashboard](#traefik_api_dashboard)
@@ -69,6 +70,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [traefik_standard_entrypoints](#traefik_standard_entrypoints)
   - [traefik_standard_middlewares](#traefik_standard_middlewares)
   - [traefik_standard_ports](#traefik_standard_ports)
+  - [traefik_standard_http_serverstransports](#traefik_standard_http_serverstransports)
   - [traefik_tls_additional_certificates](#traefik_tls_additional_certificates)
   - [traefik_tls_cipher_suites](#traefik_tls_cipher_suites)
   - [traefik_tls_default_certificate](#traefik_tls_default_certificate)
@@ -129,6 +131,16 @@ Additional available entrypoints
 
 ```YAML
 traefik_additional_entrypoints: []
+```
+
+### traefik_additional_http_serverstransports
+
+List of additional serversTransports
+
+#### Default value
+
+```YAML
+traefik_additional_http_serverstransports: []
 ```
 
 ### traefik_additional_middlewares
@@ -698,6 +710,16 @@ General available ports
 traefik_standard_ports:
   - 80:80
   - 443:443
+```
+
+### traefik_standard_http_serverstransports
+
+List of standard serversTransports
+
+#### Default value
+
+```YAML
+traefik_standard_http_serverstransports: []
 ```
 
 ### traefik_tls_additional_certificates
