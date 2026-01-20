@@ -142,6 +142,39 @@ traefik_standard_middlewares:
 # @var traefik_additional_middlewares:description: Additional available middlewares
 traefik_additional_middlewares: []
 
+# @var traefik_standard_http_serverstransports: List of standard serversTransports
+# @var traefik_standard_http_serverstransports:example: >
+# traefik_standard_http_serverstransports:
+#   - name: "mytransport"
+#     attrs:
+#       serverName: 'myhost'
+#       certificates:
+#         - "/path/to/cert1.pem"
+#         - "/path/to/cert2.pem"
+#       insecureSkipVerify: true
+#       rootcas:
+#         - "/path/to/rootca1.pem"
+#         - "/path/to/rootca2.pem"
+#       maxIdleConnsPerHost: 100
+#       disableHTTP2: true
+#       peerCertURI: "spiffe://example.org/peer"
+#       forwardingTimeouts:
+#         dialTimeout: "30s"
+#         responseHeaderTimeout: "10s"
+#         idleConnTimeout: "60s"
+#         readIdleTimeout: "5s"
+#         pingTimeout: "15s"
+#       spiffe:
+#         ids:
+#           - "spiffe://example.org/id1"
+#           - "spiffe://example.org/id2"
+#         trustDomain: "example.org"
+# @end
+traefik_standard_http_serverstransports: []
+
+# @var traefik_additional_http_serverstransports:description: Additional available serversTransports
+traefik_additional_http_serverstransports: []
+
 # @var traefik_provider_throttle_duration:description: Provider throttle duration
 traefik_provider_throttle_duration: 0
 

@@ -84,6 +84,14 @@ http:
 {% endfor %}
 {% endif %}
 
+{% if (traefik_standard_http_serverstransports + traefik_additional_http_serverstransports) | length > 0 %}
+  serverTransports:
+{% for item in traefik_standard_http_serverstransports + traefik_additional_http_serverstransports %}
+    {{ item.name }}:
+      {{ item.attrs | to_nice_yaml | trim | indent(width=6, first=false) }}
+{% endfor %}
+{% endif %}
+
 tcp:
 {% if traefik_tcp_services | default(false) %}
   services:
