@@ -61,16 +61,14 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [traefik_prometheus_service_labels](#traefik_prometheus_service_labels)
   - [traefik_provider_throttle_duration](#traefik_provider_throttle_duration)
   - [traefik_proxy_dashboard](#traefik_proxy_dashboard)
-  - [traefik_proxy_dashboard_insecure](#traefik_proxy_dashboard_insecure)
-  - [traefik_proxy_dashboard_secure](#traefik_proxy_dashboard_secure)
   - [traefik_proxy_metrics](#traefik_proxy_metrics)
   - [traefik_pull_image](#traefik_pull_image)
   - [traefik_root_certificates](#traefik_root_certificates)
   - [traefik_send_anonymous_usage](#traefik_send_anonymous_usage)
   - [traefik_standard_entrypoints](#traefik_standard_entrypoints)
+  - [traefik_standard_http_serverstransports](#traefik_standard_http_serverstransports)
   - [traefik_standard_middlewares](#traefik_standard_middlewares)
   - [traefik_standard_ports](#traefik_standard_ports)
-  - [traefik_standard_http_serverstransports](#traefik_standard_http_serverstransports)
   - [traefik_tls_additional_certificates](#traefik_tls_additional_certificates)
   - [traefik_tls_cipher_suites](#traefik_tls_cipher_suites)
   - [traefik_tls_default_certificate](#traefik_tls_default_certificate)
@@ -135,7 +133,7 @@ traefik_additional_entrypoints: []
 
 ### traefik_additional_http_serverstransports
 
-List of additional serversTransports
+Additional available serversTransports
 
 #### Default value
 
@@ -581,26 +579,6 @@ Enable builtin rules for dashboard
 traefik_proxy_dashboard: true
 ```
 
-### traefik_proxy_dashboard_insecure
-
-Enable or disable builtin rules for dashboard via _insecure_ entrypoint
-
-#### Default value
-
-```YAML
-traefik_proxy_dashboard_insecure: true
-```
-
-### traefik_proxy_dashboard_secure
-
-Enable or disable builtin rules for dashboard via _secure_ entrypoint
-
-#### Default value
-
-```YAML
-traefik_proxy_dashboard_secure: true
-```
-
 ### traefik_proxy_metrics
 
 Enable builtin rules for metrics
@@ -668,6 +646,46 @@ traefik_standard_entrypoints:
     address: :443
 ```
 
+### traefik_standard_http_serverstransports
+
+List of standard serversTransports
+
+#### Default value
+
+```YAML
+traefik_standard_http_serverstransports: []
+```
+
+#### Example usage
+
+```YAML
+traefik_standard_http_serverstransports:
+  - name: "mytransport"
+    attrs:
+      serverName: 'myhost'
+      certificates:
+        - "/path/to/cert1.pem"
+        - "/path/to/cert2.pem"
+      insecureSkipVerify: true
+      rootcas:
+        - "/path/to/rootca1.pem"
+        - "/path/to/rootca2.pem"
+      maxIdleConnsPerHost: 100
+      disableHTTP2: true
+      peerCertURI: "spiffe://example.org/peer"
+      forwardingTimeouts:
+        dialTimeout: "30s"
+        responseHeaderTimeout: "10s"
+        idleConnTimeout: "60s"
+        readIdleTimeout: "5s"
+        pingTimeout: "15s"
+      spiffe:
+        ids:
+          - "spiffe://example.org/id1"
+          - "spiffe://example.org/id2"
+        trustDomain: "example.org"
+```
+
 ### traefik_standard_middlewares
 
 General available middlewares
@@ -710,16 +728,6 @@ General available ports
 traefik_standard_ports:
   - 80:80
   - 443:443
-```
-
-### traefik_standard_http_serverstransports
-
-List of standard serversTransports
-
-#### Default value
-
-```YAML
-traefik_standard_http_serverstransports: []
 ```
 
 ### traefik_tls_additional_certificates
@@ -957,7 +965,7 @@ Version of the Docker image
 #### Default value
 
 ```YAML
-traefik_version: v3.6.6
+traefik_version: v3.6.7
 ```
 
 ## Discovered Tags
