@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.3.0](https://github.com/rolehippie/traefik/compare/v4.2.0...v4.3.0) (2026-01-30)
+
+### Features
+
+* allow configuration of http.serversTransports ([946bc57](https://github.com/rolehippie/traefik/commit/946bc578829080bb2e4c4f816a8de23cd411ca16))
+
+### Miscellaneous
+
+* **flake:** updated lockfile [skip ci] ([7db72fb](https://github.com/rolehippie/traefik/commit/7db72fb431f32701100fc6adf4a12185929c7796))
+
 ## [4.2.0](https://github.com/rolehippie/traefik/compare/v4.1.1...v4.2.0) (2026-01-19)
 
 ### Features
