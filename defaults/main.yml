@@ -142,7 +142,7 @@ traefik_standard_middlewares:
 # @var traefik_additional_middlewares:description: Additional available middlewares
 traefik_additional_middlewares: []
 
-# @var traefik_standard_http_serverstransports: List of standard serversTransports
+# @var traefik_standard_http_serverstransports:description: List of standard serversTransports
 # @var traefik_standard_http_serverstransports:example: >
 # traefik_standard_http_serverstransports:
 #   - name: "mytransport"
