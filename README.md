@@ -965,7 +965,7 @@ Version of the Docker image
 #### Default value
 
 ```YAML
-traefik_version: v3.6.8
+traefik_version: v3.6.9
 ```
 
 ## Discovered Tags
