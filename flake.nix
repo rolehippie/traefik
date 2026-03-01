@@ -81,7 +81,7 @@
               default = {
                 git-hooks = {
                   hooks = {
-                    nixfmt-rfc-style = {
+                    nixfmt = {
                       enable = true;
                     };
                     ansible-lint = {
@@ -107,7 +107,7 @@
                   ansible-doctor
                   ansible-lint
                   dockermolecule
-                  nixfmt-rfc-style
+                  nixfmt
                 ];
               };
             };
