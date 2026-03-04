@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.3.3](https://github.com/rolehippie/traefik/compare/v4.3.2...v4.3.3) (2026-03-04)
+
+### Bugfixes
+
+* improve conditional behavior ([fb689c2](https://github.com/rolehippie/traefik/commit/fb689c2f909dde3788a031bf438627d8d3c6acdd))
+
+### Miscellaneous
+
+* replace nixfmt package ([115d163](https://github.com/rolehippie/traefik/commit/115d163346cfc5cea159f7056955219c5e25fca7))
+
 ## [4.3.2](https://github.com/rolehippie/traefik/compare/v4.3.1...v4.3.2) (2026-03-02)
 
 ### Dependencies
