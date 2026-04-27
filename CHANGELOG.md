@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.5.1](https://github.com/rolehippie/traefik/compare/v4.5.0...v4.5.1) (2026-04-27)
+
+### Dependencies
+
+* **patch:** update library/traefik docker tag to v3.6.14 ([#104](https://github.com/rolehippie/traefik/issues/104)) ([dafe76e](https://github.com/rolehippie/traefik/commit/dafe76e5a6e44538f8e5834739653072eabbf6f2))
+
+### Miscellaneous
+
+* **flake:** updated lockfile [skip ci] ([2f42f38](https://github.com/rolehippie/traefik/commit/2f42f3831fa24f7d1d5d107d8a5487e725f3587a))
+* **flake:** updated lockfile [skip ci] ([62db0f0](https://github.com/rolehippie/traefik/commit/62db0f0c3b936336feeee8d3f0a38b20b8ea2499))
+
 ## [4.5.0](https://github.com/rolehippie/traefik/compare/v4.4.0...v4.5.0) (2026-04-13)
 
 ### Dependencies
