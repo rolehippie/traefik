@@ -25,7 +25,7 @@ jobs:
           permission-contents: write
 
       - name: Checkout source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ steps.token.outputs.token }}
 
