@@ -17,20 +17,20 @@ jobs:
 
     steps:
       - name: Setup nodejs
-        uses: actions/setup-node@v7.0.0
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
 
       - name: Generate token
         id: token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
-          app_id: ${{ secrets.TOKEN_EXCHANGE_APP }}
-          installation_retrieval_mode: id
-          installation_retrieval_payload: ${{ secrets.TOKEN_EXCHANGE_INSTALL }}
-          private_key: ${{ secrets.TOKEN_EXCHANGE_KEY }}
-          permissions: >-
-            {"contents": "write"}
+          client-id: ${{ secrets.TOKEN_EXCHANGE_APP }}
+          private-key: ${{ secrets.TOKEN_EXCHANGE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+          permission-packages: write
 
       - name: Checkout source
         uses: actions/checkout@v7

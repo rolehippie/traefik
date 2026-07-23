@@ -1,0 +1,14 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[tools]
+node = "24"
+pipx = "1.15.0"
+pre-commit = "4.6.1"
+python = "3.14.6"
+uv = "0.11.31"
+
+"pipx:ansible-doctor" = "8.3.3"
+"pipx:ansible-lint" = "26.6.0"
+
+"pipx:ansible-core" = { version = "2.21.2", uvx_args = "--with docker --with requests" }
+"pipx:molecule" = { version = "26.6.0", uvx_args = "--with molecule-plugins[docker] --with pytest --with pytest-testinfra --with-executables-from pytest" }

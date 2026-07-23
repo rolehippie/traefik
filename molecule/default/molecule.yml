@@ -18,7 +18,6 @@ platforms:
     pre_build_image: true
     override_command: true
     cgroupns_mode: host
-    systemd: always
     tmpfs:
       - /run
       - /tmp
@@ -26,7 +25,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     capabilities:
       - SYS_ADMIN
-    environment:
+    env:
       container: docker
   - name: traefik-ubuntu-22
     image: quay.io/k0sproject/bootloose-ubuntu22.04:latest
@@ -36,7 +35,6 @@ platforms:
     pre_build_image: true
     override_command: true
     cgroupns_mode: host
-    systemd: always
     tmpfs:
       - /run
       - /tmp
@@ -44,7 +42,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     capabilities:
       - SYS_ADMIN
-    environment:
+    env:
       container: docker
 
 provisioner:
