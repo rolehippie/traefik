@@ -1,5 +1,7 @@
 # Changelog
 
+## [4.7.0](https://github.com/rolehippie/traefik/compare/v4.6.5...v4.7.0) (2026-07-27)
+
 ## [4.6.5](https://github.com/rolehippie/traefik/compare/v4.6.4...v4.6.5) (2026-07-13)
 
 ## [4.6.4](https://github.com/rolehippie/traefik/compare/v4.6.3...v4.6.4) (2026-07-06)
