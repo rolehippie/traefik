@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.7.1](https://github.com/rolehippie/traefik/compare/v4.7.0...v4.7.1) (2026-08-03)
+
+### Dependencies
+
+* **patch:** update library/traefik docker tag to v3.7.10 ([#118](https://github.com/rolehippie/traefik/issues/118)) ([41ded5f](https://github.com/rolehippie/traefik/commit/41ded5fa235764c4e797e4e1904db6698fd0b334))
+
 ## [4.7.0](https://github.com/rolehippie/traefik/compare/v4.6.5...v4.7.0) (2026-07-27)
 
 ## [4.6.5](https://github.com/rolehippie/traefik/compare/v4.6.4...v4.6.5) (2026-07-13)
