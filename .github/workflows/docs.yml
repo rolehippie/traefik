@@ -17,6 +17,11 @@ jobs:
     if: github.repository_owner == 'rolehippie'
 
     steps:
+      - name: Setup nodejs
+        uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+
       - name: Generate token
         id: token
         uses: actions/create-github-app-token@v3

@@ -1,12 +1,9 @@
 ---
 # yaml-language-server: $schema=https://www.schemastore.org/pre-commit-config.json
+default_stages:
+  - pre-commit
+
 repos:
-  - repo: https://github.com/ansible/ansible-lint
-    rev: v26.6.0
-    hooks:
-      - id: ansible-lint
-        stages:
-          - pre-commit
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
     rev: v9.26.0
     hooks:
@@ -15,5 +12,10 @@ repos:
           - commit-msg
         additional_dependencies:
           - "@commitlint/config-conventional"
+
+  - repo: https://github.com/ansible/ansible-lint
+    rev: v26.6.0
+    hooks:
+      - id: ansible-lint
 
 ...

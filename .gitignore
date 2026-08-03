@@ -1,8 +1,8 @@
-# ---> Ansible
+mise.local.toml
+
 *.retry
 .ansible/
 
-# ---> Python
 __pycache__/
 *.py[cod]
 *$py.class
