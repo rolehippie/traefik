@@ -4,7 +4,7 @@
 node = "24"
 pipx = "1.15.0"
 pre-commit = "4.6.1"
-python = "3.14.6"
+python = "3.14.7"
 uv = "0.11.31"
 
 "pipx:ansible-doctor" = "8.3.3"
