@@ -10,5 +10,5 @@ uv = "0.11.31"
 "pipx:ansible-doctor" = "8.4.0"
 "pipx:ansible-lint" = "26.6.0"
 
-"pipx:ansible-core" = { version = "2.21.2", uvx_args = "--with docker --with requests" }
+"pipx:ansible-core" = { version = "2.21.3", uvx_args = "--with docker --with requests" }
 "pipx:molecule" = { version = "26.6.0", uvx_args = "--with molecule-plugins[docker] --with pytest --with pytest-testinfra --with-executables-from pytest" }
