@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.8.0](https://github.com/rolehippie/traefik/compare/v4.7.1...v4.8.0) (2026-08-10)
+
+### Dependencies
+
+* **minor:** update dependency pipx:ansible-doctor to v8.4.0 ([#121](https://github.com/rolehippie/traefik/issues/121)) ([0b98da9](https://github.com/rolehippie/traefik/commit/0b98da98d45b6ae24ab1b223b09d851b8e731a92))
+* **patch:** update dependency python to v3.14.7 ([#119](https://github.com/rolehippie/traefik/issues/119)) ([4138558](https://github.com/rolehippie/traefik/commit/4138558c0c36ee2fcd56a13e6d684326a6eb6545))
+
 ## [4.7.1](https://github.com/rolehippie/traefik/compare/v4.7.0...v4.7.1) (2026-08-03)
 
 ### Dependencies
