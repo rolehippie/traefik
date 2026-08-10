@@ -3,7 +3,7 @@
 [tools]
 node = "24"
 pipx = "1.15.0"
-pre-commit = "4.6.1"
+pre-commit = "4.6.2"
 python = "3.14.7"
 uv = "0.11.31"
 
