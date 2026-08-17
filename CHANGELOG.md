@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.9.0](https://github.com/rolehippie/traefik/compare/v4.8.0...v4.9.0) (2026-08-17)
+
+### Dependencies
+
+* **minor:** update dependency pipx:ansible-lint to v26.8.0 ([#124](https://github.com/rolehippie/traefik/issues/124)) ([5c31c01](https://github.com/rolehippie/traefik/commit/5c31c011d6fdf22144358e4ec17d79ba7cac864d))
+* **minor:** update dependency pipx:molecule to v26.8.0 ([#125](https://github.com/rolehippie/traefik/issues/125)) ([e88a5e3](https://github.com/rolehippie/traefik/commit/e88a5e3a152ac60985cf6057fad852248a8b1088))
+* **patch:** update dependency pipx:ansible-core to v2.21.3 ([#122](https://github.com/rolehippie/traefik/issues/122)) ([5fb4d4a](https://github.com/rolehippie/traefik/commit/5fb4d4ad07a40152c2517bae675c2608f80385af))
+* **patch:** update dependency pre-commit to v4.6.2 ([#123](https://github.com/rolehippie/traefik/issues/123)) ([7c03a65](https://github.com/rolehippie/traefik/commit/7c03a6584eef80b596274854dd2048882307c4eb))
+
 ## [4.8.0](https://github.com/rolehippie/traefik/compare/v4.7.1...v4.8.0) (2026-08-10)
 
 ### Dependencies
