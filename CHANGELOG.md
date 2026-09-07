@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.10.0](https://github.com/rolehippie/traefik/compare/v4.9.2...v4.10.0) (2026-09-07)
+
+### Features
+
+* add separate requirements for molecule run ([4fb5f38](https://github.com/rolehippie/traefik/commit/4fb5f38df4ea6b6f955ff49282751192127b62bc))
+* use new required facts as attributes ([7e2d595](https://github.com/rolehippie/traefik/commit/7e2d59557da7ef78e88c8a58ad5b29de076288f9))
+
+### Dependencies
+
+* **minor:** update dependency community.docker to >=5.3.0,<5.4.0 ([#130](https://github.com/rolehippie/traefik/issues/130)) ([04d3367](https://github.com/rolehippie/traefik/commit/04d3367ca8ccdd63404789ad2e6b11f9d6a9763f))
+* **patch:** update library/traefik docker tag to v3.7.13 ([#129](https://github.com/rolehippie/traefik/issues/129)) ([8175fd9](https://github.com/rolehippie/traefik/commit/8175fd9e2c20817e7191826eb223f65226a8456b))
+
 ## [4.9.2](https://github.com/rolehippie/traefik/compare/v4.9.1...v4.9.2) (2026-08-31)
 
 ### Dependencies
