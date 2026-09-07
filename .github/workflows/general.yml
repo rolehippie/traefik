@@ -26,6 +26,9 @@ jobs:
       - name: Install tools
         uses: jdx/mise-action@v4
 
+      - name: Molecule requirements
+        run: ansible-galaxy install -r molecule/requirements.yml
+
       - name: Install requirements
         run: ansible-galaxy install -r requirements.yml
 
@@ -52,6 +55,9 @@ jobs:
 
       - name: Install tools
         uses: jdx/mise-action@v4
+
+      - name: Molecule requirements
+        run: ansible-galaxy install -r molecule/requirements.yml
 
       - name: Install requirements
         run: ansible-galaxy install -r requirements.yml
