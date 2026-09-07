@@ -22,7 +22,7 @@ traefik_proxy_metrics: true
 traefik_proxy_dashboard: true
 
 # @var traefik_dashboard_host_rule:description: Host rule for the dashboard
-traefik_dashboard_host_rule: '{{ ansible_fqdn }}'
+traefik_dashboard_host_rule: '{{ ansible_facts['fqdn'] }}'
 
 # @var traefik_dashboard_http_entrypoint:description: Insecure entrypoint for the dashboard
 traefik_dashboard_http_entrypoint: http

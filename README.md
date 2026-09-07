@@ -255,7 +255,7 @@ Host rule for the dashboard
 #### Default value
 
 ```YAML
-traefik_dashboard_host_rule: '{{ ansible_fqdn }}'
+traefik_dashboard_host_rule: '{{ ansible_facts['fqdn'] }}'
 ```
 
 ### traefik_dashboard_http_entrypoint
