@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.10.1](https://github.com/rolehippie/traefik/compare/v4.10.0...v4.10.1) (2026-09-11)
+
+### Bugfixes
+
+* use correct quotes for ansible facts usage ([06c5459](https://github.com/rolehippie/traefik/commit/06c545991f7ee2c1e339d9c24a4798b20740a294))
+
 ## [4.10.0](https://github.com/rolehippie/traefik/compare/v4.9.2...v4.10.0) (2026-09-07)
 
 ### Features
