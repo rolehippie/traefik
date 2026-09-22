@@ -8,4 +8,4 @@ uv = "0.12.10"
 "pipx:ansible-core" = { version = "2.21.4", uvx_args = "--with docker --with requests" }
 "pipx:ansible-doctor" = { version= "8.4.2", uvx_args = "--with ansible-core" }
 "pipx:ansible-lint" = "26.8.0"
-"pipx:molecule" = { version = "26.8.0", uvx_args = "--with molecule-hetznercloud --with molecule-plugins[docker] --with pytest --with pytest-testinfra --with-executables-from pytest" }
+"pipx:molecule" = { version = "26.9.0", uvx_args = "--with molecule-hetznercloud --with molecule-plugins[docker] --with pytest --with pytest-testinfra --with-executables-from pytest" }
