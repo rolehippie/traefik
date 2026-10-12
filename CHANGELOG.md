@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.11.1](https://github.com/rolehippie/traefik/compare/v4.11.0...v4.11.1) (2026-10-12)
+
+### Dependencies
+
+* **mise:** update dependency pipx:ansible-core to v2.21.5 ([#140](https://github.com/rolehippie/traefik/issues/140)) ([8e2aa17](https://github.com/rolehippie/traefik/commit/8e2aa174b5c0f5e92d4bf6b4a2a25a8bb8e2ff7e))
+* **mise:** update dependency pipx:ansible-doctor to v8.4.3 ([#141](https://github.com/rolehippie/traefik/issues/141)) ([c08c83a](https://github.com/rolehippie/traefik/commit/c08c83aa9d2cb6073f8025c4f57d1a1d4264e350))
+* **mise:** update dependency pipx:ansible-lint to v26.10.0 ([#143](https://github.com/rolehippie/traefik/issues/143)) ([954aa2c](https://github.com/rolehippie/traefik/commit/954aa2cfc249114f6bf0a173061241367ed45931))
+* **mise:** update dependency pipx:molecule to v26.10.0 ([#144](https://github.com/rolehippie/traefik/issues/144)) ([469e864](https://github.com/rolehippie/traefik/commit/469e86455748726ccc4a2cbad12ff01b31eda210))
+* **patch:** update library/traefik docker tag to v3.7.14 ([#142](https://github.com/rolehippie/traefik/issues/142)) ([0470b73](https://github.com/rolehippie/traefik/commit/0470b73144d6f803b752eaa7da75949134278c9e))
+
 ## [4.11.0](https://github.com/rolehippie/traefik/compare/v4.10.1...v4.11.0) (2026-10-05)
 
 ### Dependencies
