@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.11.2](https://github.com/rolehippie/traefik/compare/v4.11.1...v4.11.2) (2026-10-19)
+
+### Dependencies
+
+* **mise:** update dependency pipx:ansible-lint to v26.10.1 ([#145](https://github.com/rolehippie/traefik/issues/145)) ([16c71a1](https://github.com/rolehippie/traefik/commit/16c71a178d9ed77d20acae6ef8930da9cd83945f))
+* **mise:** update dependency prek to v0.5.6 ([#147](https://github.com/rolehippie/traefik/issues/147)) ([9d0ac56](https://github.com/rolehippie/traefik/commit/9d0ac566baff137cc12ea6ed9006a159349cbd73))
+* **patch:** update library/traefik docker tag to v3.7.15 ([#146](https://github.com/rolehippie/traefik/issues/146)) ([4f88ada](https://github.com/rolehippie/traefik/commit/4f88adad1710b9448057b936bdd08d4fe02a74b6))
+
 ## [4.11.1](https://github.com/rolehippie/traefik/compare/v4.11.0...v4.11.1) (2026-10-12)
 
 ### Dependencies
