@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.11.3](https://github.com/rolehippie/traefik/compare/v4.11.2...v4.11.3) (2026-10-26)
+
+### Dependencies
+
+* **mise:** update dependency prek to v0.5.7 ([#149](https://github.com/rolehippie/traefik/issues/149)) ([dcdffc8](https://github.com/rolehippie/traefik/commit/dcdffc806f639e99f1eae88f40a3c18887b7f89d))
+* **patch:** update library/traefik docker tag to v3.7.16 ([#148](https://github.com/rolehippie/traefik/issues/148)) ([c80e238](https://github.com/rolehippie/traefik/commit/c80e238f99ad5abd71c927e79d462a40655df666))
+
 ## [4.11.2](https://github.com/rolehippie/traefik/compare/v4.11.1...v4.11.2) (2026-10-19)
 
 ### Dependencies
