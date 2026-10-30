@@ -2,7 +2,7 @@
 
 [tools]
 node = "26"
-prek = "0.5.7"
+prek = "0.5.9"
 uv = "0.12.10"
 
 "pipx:ansible-core" = { version = "2.21.5", uvx_args = "--with docker --with requests" }
