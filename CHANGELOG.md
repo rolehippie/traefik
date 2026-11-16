@@ -1,5 +1,21 @@
 # Changelog
 
+## [4.11.5](https://github.com/rolehippie/traefik/compare/v4.11.4...v4.11.5) (2026-11-16)
+
+* automated readme update [skip ci] ([a34ba4b](https://github.com/rolehippie/traefik/commit/a34ba4b6168468e232efa8c44ec6eaf521ac7c17))
+* automated readme update [skip ci] ([3119ccd](https://github.com/rolehippie/traefik/commit/3119ccdf5bf2544679ae790e5eaf31a4d96b7895))
+* automated release update [skip ci] ([bc5a866](https://github.com/rolehippie/traefik/commit/bc5a866ad616661ee22545ca51263fdce18ba6bf))
+
+### Dependencies
+
+* **mise:** update dependency pipx:ansible-core to v2.22.0 ([#153](https://github.com/rolehippie/traefik/issues/153)) ([cb5ef8c](https://github.com/rolehippie/traefik/commit/cb5ef8c177b784e16e1975a66d0cdd9bff5ebb48))
+* **mise:** update dependency pipx:ansible-doctor to v8.4.4 ([#157](https://github.com/rolehippie/traefik/issues/157)) ([92aeee4](https://github.com/rolehippie/traefik/commit/92aeee473112f45f9cfd45bc14045c4214ad7b43))
+* **mise:** update dependency pipx:ansible-lint to v26.11.0 ([#155](https://github.com/rolehippie/traefik/issues/155)) ([9fe72f5](https://github.com/rolehippie/traefik/commit/9fe72f501ec6a4cf3e98d57d60c741ef6d41ace5))
+* **mise:** update dependency pipx:molecule to v26.11.0 ([#156](https://github.com/rolehippie/traefik/issues/156)) ([fb1b0c8](https://github.com/rolehippie/traefik/commit/fb1b0c86889b6b430d250053f35bed2b019a0e67))
+* **mise:** update dependency prek to v0.5.10 ([#154](https://github.com/rolehippie/traefik/issues/154)) ([13e58ce](https://github.com/rolehippie/traefik/commit/13e58cedb4d6da5d2275891437b13892aa52b895))
+* **patch:** update library/traefik docker tag to v3.7.18 ([#158](https://github.com/rolehippie/traefik/issues/158)) ([6472950](https://github.com/rolehippie/traefik/commit/6472950f1599f5db7c29387ee1524d91d2283e5e))
+* **patch:** update library/traefik docker tag to v3.7.19 ([#159](https://github.com/rolehippie/traefik/issues/159)) ([c3907f8](https://github.com/rolehippie/traefik/commit/c3907f8eb7ffb9f00c0523e7f972ad9b6cade02b))
+
 ## [4.11.4](https://github.com/rolehippie/traefik/compare/v4.11.3...v4.11.4) (2026-11-02)
 
 ### Dependencies
